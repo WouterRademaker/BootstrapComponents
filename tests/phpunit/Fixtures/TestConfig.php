@@ -9,8 +9,7 @@ use MediaWiki\Config\IterableConfig;
 use MutableConfig;
 use Traversable;
 
-class TestConfig implements Config, MutableConfig, IterableConfig
-{
+class TestConfig implements Config, MutableConfig, IterableConfig {
 	/**
 	 * @var array
 	 */
@@ -59,7 +58,7 @@ class TestConfig implements Config, MutableConfig, IterableConfig
 		$this->settings[$name] = $value;
 	}
 
-	protected function prepareConfig( string $prefix): array {
+	protected function prepareConfig( string $prefix ): array {
 		$config = [];
 		foreach ( $GLOBALS as $key => $value ) {
 			$matches = [];

@@ -43,7 +43,6 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use ConfigException;
 use Exception;
 use MWException;
 
@@ -60,9 +59,8 @@ class BootstrapComponents {
 
 	const EXTENSION_DATA_NO_IMAGE_MODAL = 'bsc_no_image_modal';
 
-
 	/**
-	 * @var string $version
+	 * @var string
 	 */
 	private static string $version;
 
@@ -76,7 +74,6 @@ class BootstrapComponents {
 	 * @return void
 	 */
 	public static function init( array $info ) {
-
 		// loads local composer libraries, if present
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 			include_once __DIR__ . '/vendor/autoload.php';
@@ -96,7 +93,7 @@ class BootstrapComponents {
 		}
 
 		// Using the constant as indicator to avoid class_exists
-		if ( !\ExtensionRegistry::getInstance()->isLoaded('Bootstrap') ) {
+		if ( !\ExtensionRegistry::getInstance()->isLoaded( 'Bootstrap' ) ) {
 			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
 				die( "\nThe 'BootstrapComponents' extension requires the 'Bootstrap' extension to be installed and enabled.\n" );
 			} else {
@@ -115,8 +112,7 @@ class BootstrapComponents {
 	 *
 	 * @return string
 	 */
-	public static function getVersion(): string
-	{
+	public static function getVersion(): string {
 		return self::$version ?: 'UNDEFINED';
 	}
 }

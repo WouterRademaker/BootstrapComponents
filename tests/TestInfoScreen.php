@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests;
 /**
  * @private
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 4.0
  *
  * @author oetterer
@@ -95,6 +95,6 @@ class TestInfoScreen {
 	 * outputs a new line
 	 */
 	protected function writeNewLine() {
-		print  "\n";
+		print "\n";
 	}
 }

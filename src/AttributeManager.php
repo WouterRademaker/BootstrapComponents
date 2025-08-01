@@ -53,18 +53,18 @@ class AttributeManager {
 	/**
 	 * Holds all values indicating a "no". Can be used to ignore "enable"-fields.
 	 *
-	 * @var array $noValues
+	 * @var array
 	 */
 	private $noValues;
 
 	/**
 	 * The list of attributes that are considered valid; holds alias relation 'name|alias' => 'real name'
 	 *
-	 * @var string[] $validAttributeNameMapping
+	 * @var string[]
 	 */
 	private $validAttributeNameMapping;
 
-	#@todo need a method: attributeIsSupplied(). for components must be able to check, if "header" was supplied and don't know about aliases
+	# @todo need a method: attributeIsSupplied(). for components must be able to check, if "header" was supplied and don't know about aliases
 
 	/**
 	 * AttributeManager constructor.
@@ -73,7 +73,7 @@ class AttributeManager {
 	 * instead.
 	 *
 	 * @param string[] $componentAttributes the list of attributes, this manager deems valid.
-	 * @param string[] $aliases             the list of aliases and their corresponding attribute
+	 * @param string[] $aliases the list of aliases and their corresponding attribute
 	 *
 	 * @see ApplicationFactory::getNewAttributeManager
 	 */
@@ -106,7 +106,7 @@ class AttributeManager {
 	/**
 	 * Checks, if the attribute $neededAttribute or its alias is found in $suppliedAttributes.
 	 *
-	 * @param string   $neededAttribute
+	 * @param string $neededAttribute
 	 * @param string[] $suppliedAttributes
 	 *
 	 * @return bool
@@ -135,7 +135,7 @@ class AttributeManager {
 	 *  * If there is no data for $attribute in $passedValue, or the value does not pass verification, this returns
 	 *    null as $passedValue.
 	 *
-	 * @param string $attribute   the attribute|alias, data will be extracted for
+	 * @param string $attribute the attribute|alias, data will be extracted for
 	 * @param string $passedValue must be already parsed
 	 *
 	 * @return array ( (string) $attributeName, (null|string) $passedValue );
@@ -273,7 +273,6 @@ class AttributeManager {
 			'text'          => self::ANY_VALUE,
 			'trigger'       => [ 'default', 'focus', 'hover' ],
 		];
-
 	}
 
 	/**

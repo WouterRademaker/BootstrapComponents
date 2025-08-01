@@ -8,7 +8,6 @@ error_reporting( E_ALL | E_STRICT );
 date_default_timezone_set( 'UTC' );
 ini_set( 'display_errors', 1 );
 
-
 if ( !ExtensionRegistry::getInstance()->isLoaded( 'BootstrapComponents' ) ) {
 	die( "\nBootstrapComponents is not available or loaded, please check your Composer or LocalSettings.\n" );
 }

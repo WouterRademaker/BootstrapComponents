@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
  */
 class HooksHandlerTest extends TestCase {
 
-
 	/**
 	 * @throws \ConfigException
 	 */
@@ -49,7 +48,7 @@ class HooksHandlerTest extends TestCase {
 		);
 	}
 
-	public function testOnGalleryGetModes()	{
+	public function testOnGalleryGetModes() {
 		$modes = [];
 		$hooksHandler = new HooksHandler(
 			$this->createMock( BootstrapComponentsService::class ),
@@ -57,7 +56,7 @@ class HooksHandlerTest extends TestCase {
 			$this->createMock( NestingController::class ),
 		);
 		$this->assertTrue(
-        	$hooksHandler->onGalleryGetModes( $modes )
+			$hooksHandler->onGalleryGetModes( $modes )
 		);
 		$this->assertTrue( isset( $modes['carousel'] ) );
 		$this->assertEquals( 'MediaWiki\\Extension\\BootstrapComponents\\CarouselGallery', $modes['carousel'] );

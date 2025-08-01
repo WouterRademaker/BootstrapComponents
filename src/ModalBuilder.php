@@ -26,8 +26,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use \Html;
-use MediaWiki\MediaWikiServices;
+use Html;
 
 /**
  * Class ModalBase
@@ -51,62 +50,62 @@ use MediaWiki\MediaWikiServices;
 class ModalBuilder {
 
 	/**
-	 * @var string $content
+	 * @var string
 	 */
 	private $content;
 
 	/**
-	 * @var string|false $footer
+	 * @var string|false
 	 */
 	private $footer;
 
 	/**
-	 * @var string|false $header
+	 * @var string|false
 	 */
 	private $header;
 
 	/**
-	 * @var string $id
+	 * @var string
 	 */
 	private $id;
 
 	/**
-	 * @var string|false $bodyClass
+	 * @var string|false
 	 */
 	private $bodyClass;
 
 	/**
-	 * @var string|false $bodyStyle
+	 * @var string|false
 	 */
 	private $bodyStyle;
 
 	/**
-	 * @var string|false $dialogClass
+	 * @var string|false
 	 */
 	private $dialogClass;
 
 	/**
-	 * @var string|false $dialogStyle
+	 * @var string|false
 	 */
 	private $dialogStyle;
 
 	/**
-	 * @var string|false $outerClass
+	 * @var string|false
 	 */
 	private $outerClass;
 
 	/**
-	 * @var string|false $outerStyle
+	 * @var string|false
 	 */
 	private $outerStyle;
 
 	/**
-	 * @var ParserOutputHelper $parserOutputHelper
+	 * @var ParserOutputHelper
 	 */
 	private $parserOutputHelper;
 
 	/**
-	 * @var string $trigger
+	 * @var string
 	 */
 	private $trigger;
 
@@ -143,9 +142,9 @@ class ModalBuilder {
 	 * Do not instantiate directly, but use {@see ApplicationFactory::getNewModalBuilder}
 	 * instead.
 	 *
-	 * @param string             $id
-	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
-	 * @param string             $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
+	 * @param string $id
+	 * @param string $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
+	 * @param string $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
 	 * @param ParserOutputHelper $parserOutputHelper
 	 *
 	 * @see ApplicationFactory::getNewModalBuilder
@@ -343,7 +342,7 @@ class ModalBuilder {
 	/**
 	 * Used to merge different class attributes.
 	 *
-	 * @param string       $baseClass
+	 * @param string $baseClass
 	 * @param string|false $additionalClass
 	 *
 	 * @return string

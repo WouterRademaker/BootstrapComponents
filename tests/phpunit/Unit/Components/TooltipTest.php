@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 use MediaWiki\Extension\BootstrapComponents\Components\Tooltip;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Tooltip
@@ -28,7 +28,6 @@ class TooltipTest extends ComponentsTestBase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Tooltip::class,
 			new Tooltip(
@@ -41,7 +40,7 @@ class TooltipTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedOutput
 	 *
 	 * @dataProvider placeMeArgumentsProvider

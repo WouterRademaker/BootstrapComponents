@@ -54,7 +54,7 @@ class ImageModal implements NestableInterface {
 	private BootstrapComponentsService $bootstrapComponentService;
 
 	/**
-	 * @var File $file
+	 * @var File
 	 */
 	private File $file;
 
@@ -64,7 +64,7 @@ class ImageModal implements NestableInterface {
 	private null|string $id;
 
 	/**
-	 * @var NestingController $nestingController
+	 * @var NestingController
 	 */
 	private NestingController $nestingController;
 
@@ -74,17 +74,17 @@ class ImageModal implements NestableInterface {
 	private null|bool|NestableInterface $parentComponent;
 
 	/**
-	 * @var ParserOutputHelper $parserOutputHelper
+	 * @var ParserOutputHelper
 	 */
 	private ParserOutputHelper $parserOutputHelper;
 
 	/**
-	 * @var bool $disableSourceLink
+	 * @var bool
 	 */
 	private bool $disableSourceLink;
 
 	/**
-	 * @var Title $title
+	 * @var Title
 	 */
 	private Title $title;
 
@@ -103,7 +103,7 @@ class ImageModal implements NestableInterface {
 	public function __construct(
 		$null, Title $title, File $file,
 		NestingController $nestingController, BootstrapComponentsService $bootstrapComponentService,
-		ParserOutputHelper $parserOutputHelper = null
+		?ParserOutputHelper $parserOutputHelper = null
 	) {
 		$this->file = $file;
 		$this->title = $title;
@@ -121,7 +121,7 @@ class ImageModal implements NestableInterface {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function getComponentName(): string {
 		return "modal";
@@ -130,14 +130,14 @@ class ImageModal implements NestableInterface {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function getId() {
 		return $this->id;
 	}
 
 	/**
-	 * @param array       $frameParams   Associative array of parameters external to the media handler.
+	 * @param array &$frameParams Associative array of parameters external to the media handler.
 	 *                                   Boolean parameters are indicated by presence or absence, the value is arbitrary and
 	 *                                   will often be false.
 	 *                                   thumbnail       If present, downscale and frame
@@ -157,12 +157,12 @@ class ImageModal implements NestableInterface {
 	 *                                   link-title      Title object to link to
 	 *                                   link-target     Value for the target attribute, only with link-url
 	 *                                   no-link         Boolean, suppress description link
-	 * @param array       $handlerParams Associative array of media handler parameters, to be passed
+	 * @param array &$handlerParams Associative array of media handler parameters, to be passed
 	 *                                   to transform(). Typical keys are "width" and "page".
-	 * @param string|bool $time          Timestamp of the file, set as false for current
-	 * @param string      $res           Final HTML output, used if this returns false
+	 * @param string|bool &$time Timestamp of the file, set as false for current
+	 * @param string &$res Final HTML output, used if this returns false
 	 *
-	 * @throws MWException     cascading {@see NestingController::open}
+	 * @throws MWException cascading {@see NestingController::open}
 	 * @throws \ConfigException cascading {@see ImageModal::generateTrigger}
 	 *
 	 * @return bool
@@ -254,7 +254,6 @@ class ImageModal implements NestableInterface {
 	 * @return array bool|string bool (large image yes or no)
 	 */
 	protected function generateContent( File $file, array $sanitizedFrameParams, array $handlerParams ): array {
-
 		/** @var MediaTransformOutput $img $img */
 		$img = $file->getUnscaledThumb(
 			[ 'page' => $handlerParams['page'] ]
@@ -314,7 +313,7 @@ class ImageModal implements NestableInterface {
 	 * @param array $sanitizedFrameParams
 	 * @param array $handlerParams
 	 *
-	 * @return string   rendered modal on success, empty string on failure.
+	 * @return string rendered modal on success, empty string on failure.
 	 * @throws \ConfigException|\Exception
 	 *
 	 */
@@ -331,7 +330,7 @@ class ImageModal implements NestableInterface {
 			return '';
 		}
 
-		list ( $content, $largeDialog ) = $this->generateContent(
+		[ $content, $largeDialog ] = $this->generateContent(
 			$this->getFile(),
 			$sanitizedFrameParams,
 			$handlerParams
@@ -359,7 +358,7 @@ class ImageModal implements NestableInterface {
 					$handlerParams
 				)
 			);
-		};
+		}
 
 		if ( $largeDialog ) {
 			$modal->setDialogClass( 'modal-lg' );
@@ -395,8 +394,7 @@ class ImageModal implements NestableInterface {
 	 *
 	 * @return bool
 	 */
-	private function assertImageModalNotSuppressed( array $frameParams ): bool
-	{
+	private function assertImageModalNotSuppressed( array $frameParams ): bool {
 		if ( $this->getParentComponent()
 			&& in_array( $this->getParentComponent()->getComponentName(), self::PARENTS_PREVENTING_MODAL )
 		) {
@@ -413,7 +411,7 @@ class ImageModal implements NestableInterface {
 
 	/**
 	 * @param MediaTransformOutput $img
-	 * @param array                $sanitizedFrameParams
+	 * @param array $sanitizedFrameParams
 	 *
 	 * @return string
 	 */

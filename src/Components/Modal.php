@@ -26,10 +26,10 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
 use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
 use MediaWiki\Extension\BootstrapComponents\ModalBuilder;
-use \Html;
 
 /**
  * Class Modal
@@ -41,16 +41,17 @@ use \Html;
  */
 class Modal extends AbstractComponent {
 
-	#@todo replace heading with title, account for deprecation, fix language files!
+	# @todo replace heading with title, account for deprecation, fix language files!
+
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
 	protected function placeMe( $input ) {
-		list ( $outerClass, $style ) = $this->processCss( [], [] );
+		[ $outerClass, $style ] = $this->processCss( [], [] );
 
-		list ( $returnCode, $text ) = $this->generateTrigger();
+		[ $returnCode, $text ] = $this->generateTrigger();
 		if ( !$returnCode ) {
 			return $text;
 		}
@@ -85,7 +86,6 @@ class Modal extends AbstractComponent {
 	 * @return false|string
 	 */
 	private function calculateInnerClass() {
-
 		$class = [];
 
 		if ( $size = $this->getValueFor( 'size' ) ) {
@@ -117,7 +117,7 @@ class Modal extends AbstractComponent {
 	/**
 	 * Generate the trigger element (button or image).
 	 *
-	 * @return array    (bool)return code, (string) message/trigger,
+	 * @return array (bool)return code, (string) message/trigger,
 	 */
 	private function generateTrigger() {
 		$text = (string)$this->getValueFor( 'text' );

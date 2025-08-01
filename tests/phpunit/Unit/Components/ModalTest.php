@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Modal;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Modal
@@ -27,7 +27,6 @@ class ModalTest extends ComponentsTestBase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Modal',
 			new Modal(
@@ -40,7 +39,7 @@ class ModalTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedTriggerOutput
 	 * @param string $expectedModalOutput
 	 *
@@ -48,19 +47,18 @@ class ModalTest extends ComponentsTestBase {
 	 * @throws MWException
 	 */
 	public function testCanRender( $input, $arguments, $expectedTriggerOutput, $expectedModalOutput ) {
-
 		$modalInjection = '';
 		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
+			->willReturnCallback( static function ( $id, $text ) use ( &$modalInjection ) {
 				$modalInjection .= $text;
-			} ) );
+			} );
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'renderErrorMessage' )
-			->will( $this->returnArgument( 0 ) );
+			->willReturnArgument( 0 );
 
 		/** @noinspection PhpParamsInspection */
 		$instance = new Modal(

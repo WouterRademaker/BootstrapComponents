@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
-use \MWException;
+use MWException;
 // TODO: when dropping 1.39, switch to MediaWiki\Parser\Parser and MediaWiki\Parser\ParserOutput
 use Parser;
 use ParserOutput;
@@ -47,7 +47,6 @@ class ParserOutputHelperTest extends TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			ParserOutputHelper::class,
 			new ParserOutputHelper( $this->parser )
@@ -55,7 +54,6 @@ class ParserOutputHelperTest extends TestCase {
 	}
 
 	public function testCanAddErrorTrackingCategory() {
-
 		$parser = $this->createMock( 'Parser' );
 		$parser->expects( $this->once() )
 			->method( 'getOutput' )
@@ -99,7 +97,6 @@ class ParserOutputHelperTest extends TestCase {
 				$instance->renderErrorMessage( $messageText )
 			);
 		}
-
 	}
 
 	/**
@@ -129,8 +126,6 @@ class ParserOutputHelperTest extends TestCase {
 		];
 	}
 
-
-
 	/**
 	 * @param bool $expectError
 	 *
@@ -147,7 +142,7 @@ class ParserOutputHelperTest extends TestCase {
 			$parserOutput->expects( $this->once() )
 				->method( 'addCategory' )
 				->with(
-					$this->equalTo( 'Pages_with_bootstrap_component_errors' )
+					'Pages_with_bootstrap_component_errors'
 				);
 			$parser->expects( $this->once() )
 				->method( 'getOutput' )

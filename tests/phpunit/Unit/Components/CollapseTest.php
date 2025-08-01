@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Collapse;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Collapse
@@ -27,7 +27,6 @@ class CollapseTest extends ComponentsTestBase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Collapse',
 			new Collapse(
@@ -40,7 +39,7 @@ class CollapseTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedOutput
 	 *
 	 * @dataProvider placeMeArgumentsProvider

@@ -55,14 +55,14 @@ class NestingControllerTest extends TestCase {
 	 */
 	public function testCanOpenAndClose( $componentName, $componentClass ) {
 		$instance = new NestingController();
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$instance->getStackSize()
 		);
 		$component = $this->getComponent( $componentName, $componentClass );
 		/** @noinspection PhpParamsInspection */
 		$instance->open( $component );
-		$this->assertEquals(
+		$this->assertSame(
 			1,
 			$instance->getStackSize()
 		);
@@ -79,7 +79,7 @@ class NestingControllerTest extends TestCase {
 		/** @var AbstractComponent $component */
 			$component->getId()
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$instance->getStackSize()
 		);
@@ -133,10 +133,10 @@ class NestingControllerTest extends TestCase {
 
 	/**
 	 * @param NestingController $instance
-	 * @param string[]          $testParams
+	 * @param string[] $testParams
 	 */
 	private function doTestCanGenerateUniqueId( $instance, $testParams ) {
-		list( $componentName, $expectedId ) = $testParams;
+		[ $componentName, $expectedId ] = $testParams;
 		$this->assertEquals(
 			$expectedId,
 			$instance->generateUniqueId( $componentName )

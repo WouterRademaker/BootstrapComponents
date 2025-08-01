@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Integration;
 
-use \MediaWiki\MediaWikiServices;
+use MediaWiki\MediaWikiServices;
 use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\Utils\UtilityFactory;
 
@@ -26,16 +26,15 @@ class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider i18nFileProvider
 	 */
 	public function testI18NJsonDecodeEncode( $file ) {
-
 		$jsonFileReader = UtilityFactory::getInstance()->newJsonFileReader( $file );
 
-		$this->assertInternalType(
-			'integer',
+		$this->assertIsInt(
+
 			$jsonFileReader->getModificationTime()
 		);
 
-		$this->assertInternalType(
-			'array',
+		$this->assertIsArray(
+
 			$jsonFileReader->read()
 		);
 	}
@@ -46,7 +45,6 @@ class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
 	 * @return array
 	 */
 	public function i18nFileProvider() {
-
 		$provider = [];
 		$configFactory = MediaWikiServices::getInstance()->getMainConfig();
 		$wgMessageDirs = $configFactory->get( 'MessagesDirs' );

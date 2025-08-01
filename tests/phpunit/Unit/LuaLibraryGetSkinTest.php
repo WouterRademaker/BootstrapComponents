@@ -26,11 +26,10 @@ class LuaLibraryGetSkinTest extends LuaLibraryTestBase {
 	 * LuaLibraryTestBase::getTestModules
 	 */
 	public function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			self::$moduleName => __DIR__ . '/' . 'mw.bootstrap.getSkin.tests.lua',
-		);
+		];
 	}
-
 
 	/**
 	 * Tests method parse

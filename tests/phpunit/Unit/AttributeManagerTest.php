@@ -46,9 +46,9 @@ class AttributeManagerTest extends TestCase {
 
 	/**
 	 * @param string[] $attributes
-	 * @param array    $aliases
-	 * @param string   $attribute
-	 * @param bool     $expected
+	 * @param array $aliases
+	 * @param string $attribute
+	 * @param bool $expected
 	 *
 	 * @dataProvider providerIsValid
 	 */
@@ -62,10 +62,10 @@ class AttributeManagerTest extends TestCase {
 
 	/**
 	 * @param string[] $attributes
-	 * @param array    $aliases
-	 * @param string   $attribute
+	 * @param array $aliases
+	 * @param string $attribute
 	 * @param string[] $request
-	 * @param bool     $expected
+	 * @param bool $expected
 	 *
 	 * @dataProvider providerIsSuppliedInRequest
 	 */
@@ -79,17 +79,17 @@ class AttributeManagerTest extends TestCase {
 
 	/**
 	 * @param string[] $attributes
-	 * @param array    $aliases
-	 * @param string   $attribute
-	 * @param mixed    $value
-	 * @param string   $expectedAttribute
-	 * @param mixed    $expectedValue
+	 * @param array $aliases
+	 * @param string $attribute
+	 * @param mixed $value
+	 * @param string $expectedAttribute
+	 * @param mixed $expectedValue
 	 *
 	 * @dataProvider providerValidateAttributeAndValue
 	 */
 	public function testValidateAttributeAndValue( $attributes, $aliases, $attribute, $value, $expectedAttribute, $expectedValue ) {
 		$manager = new AttributeManager( $attributes, $aliases );
-		list( $returnedAttribute, $returnedValue ) = $manager->validateAttributeAndValue( $attribute, $value );
+		[ $returnedAttribute, $returnedValue ] = $manager->validateAttributeAndValue( $attribute, $value );
 		$this->assertEquals( $expectedAttribute, $returnedAttribute );
 		$this->assertEquals( $expectedValue, $returnedValue );
 	}
@@ -131,7 +131,7 @@ class AttributeManagerTest extends TestCase {
 			'noFalseValue w/ any'          => [ [ 'active' ], [], 'active', 'foobar', 'active', 'foobar' ],
 			'fixedList w/ match'           => [ [ 'color' ], [], 'color', 'danger', 'color', 'danger' ],
 			'fixedList w/o match'          => [ [ 'color' ], [], 'color', 'ease', 'color', null ],
-			'alias'                        => [ [ 'header' ], [ 'heading' => 'header '], 'heading', 'foo bar', 'header', 'foo bar' ],
+			'alias'                        => [ [ 'header' ], [ 'heading' => 'header ' ], 'heading', 'foo bar', 'header', 'foo bar' ],
 		];
 		// adding no values
 		foreach ( [ false, 0, '0', 'no', 'false', 'off', 'disabled', 'ignored' ] as $key => $noValue ) {

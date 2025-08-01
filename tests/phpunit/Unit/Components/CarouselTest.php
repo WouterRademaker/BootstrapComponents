@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Carousel;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Carousel
@@ -27,7 +27,6 @@ class CarouselTest extends ComponentsTestBase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Carousel',
 			new Carousel(
@@ -40,7 +39,7 @@ class CarouselTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedOutput
 	 *
 	 * @dataProvider placeMeArgumentsProvider

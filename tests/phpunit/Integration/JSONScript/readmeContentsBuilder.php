@@ -17,28 +17,27 @@ class ReadmeContentsBuilder {
 	/**
 	 * @var string
 	 */
-	CONST REPLACE_START_MARKER = '<!-- Begin of generated contents by readmeContentsBuilder.php -->';
-	CONST REPLACE_END_MARKER = '<!-- End of generated contents by readmeContentsBuilder.php -->';
+	const REPLACE_START_MARKER = '<!-- Begin of generated contents by readmeContentsBuilder.php -->';
+	const REPLACE_END_MARKER = '<!-- End of generated contents by readmeContentsBuilder.php -->';
 
 	/**
 	 * @var array
 	 */
-	private $urlLocationMap = array(
+	private $urlLocationMap = [
 		'TestCases' => 'TestCases'
-	);
+	];
 
 	/**
 	 * @since  2.4
 	 */
 	public function run() {
-
 		$file = __DIR__ . '/README.md';
 		$dateTimeUtc = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
 
 		$replacement = self::REPLACE_START_MARKER . "\n\n";
 		$replacement .= $this->doGenerateContentFor( 'TestCases', __DIR__ . '/TestCases' );
 
-		$replacement .= "\n-- Last updated on " .  $dateTimeUtc->format( 'Y-m-d' )  . " by `readmeContentsBuilder.php`". "\n";
+		$replacement .= "\n-- Last updated on " . $dateTimeUtc->format( 'Y-m-d' ) . " by `readmeContentsBuilder.php`" . "\n";
 		$replacement .= "\n" . self::REPLACE_END_MARKER;
 
 		$contents = file_get_contents( $file );
@@ -58,7 +57,6 @@ class ReadmeContentsBuilder {
 	 * @return string
 	 */
 	private function doGenerateContentFor( $title, $path ) {
-
 		$output = '';
 		$urlLocation = $this->urlLocationMap[$title];
 
@@ -67,7 +65,7 @@ class ReadmeContentsBuilder {
 
 		foreach ( $this->findFilesFor( $path, 'json' ) as $key => $location ) {
 
-			$output .= '* [' . $key .'](' . $urlLocation . '/' . $key . ')';
+			$output .= '* [' . $key . '](' . $urlLocation . '/' . $key . ')';
 
 			$contents = json_decode( file_get_contents( $location ), true );
 
@@ -97,8 +95,7 @@ class ReadmeContentsBuilder {
 	 * @return array
 	 */
 	private function findFilesFor( $path, $extension ) {
-
-		$files = array();
+		$files = [];
 
 		$directoryIterator = new \RecursiveDirectoryIterator( $path );
 

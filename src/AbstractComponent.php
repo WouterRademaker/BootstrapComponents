@@ -26,7 +26,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use \MWException;
+use MWException;
 
 /**
  * Class AbstractComponent
@@ -39,46 +39,46 @@ abstract class AbstractComponent implements NestableInterface {
 	/**
 	 * Holds a reference of the component's attribute manger.
 	 *
-	 * @var AttributeManager $attributeManager
+	 * @var AttributeManager
 	 */
 	private $attributeManager;
 
 	/**
-	 * @var ComponentLibrary $componentLibrary
+	 * @var ComponentLibrary
 	 */
 	private $componentLibrary;
 
 	/**
 	 * The (html) id of this component. Not available before the component was opened.
 	 *
-	 * @var string $id
+	 * @var string
 	 */
 	private $id;
 
 	/**
 	 * Name of the component
 	 *
-	 * @var string $name
+	 * @var string
 	 */
 	private $name;
 
 	/**
-	 * @var NestingController $nestingController
+	 * @var NestingController
 	 */
 	private $nestingController;
 
 	/**
-	 * @var NestableInterface|false $parentComponent
+	 * @var NestableInterface|false
 	 */
 	private $parentComponent;
 
 	/**
-	 * @var ParserOutputHelper $parserOutputHelper
+	 * @var ParserOutputHelper
 	 */
 	private $parserOutputHelper;
 
 	/**
-	 * @var ParserRequest $parserRequest
+	 * @var ParserRequest
 	 */
 	private $parserRequest;
 
@@ -86,7 +86,7 @@ abstract class AbstractComponent implements NestableInterface {
 	 * For every of my registered attributes holds a value. false, if not valid in supplied
 	 * parserRequest.
 	 *
-	 * @var array $sanitizedAttributes
+	 * @var array
 	 */
 	private $sanitizedAttributes;
 
@@ -102,9 +102,9 @@ abstract class AbstractComponent implements NestableInterface {
 	/**
 	 * Component constructor.
 	 *
-	 * @param ComponentLibrary   $componentLibrary
+	 * @param ComponentLibrary $componentLibrary
 	 * @param ParserOutputHelper $parserOutputHelper
-	 * @param NestingController  $nestingController
+	 * @param NestingController $nestingController
 	 *
 	 * @throws MWException cascading {@see ComponentLibrary::getNameFor} or {@see Component::extractAttribute}
 	 */
@@ -166,7 +166,7 @@ abstract class AbstractComponent implements NestableInterface {
 	 * Converts the input array to a string using glue. Removes invalid (false) entries beforehand.
 	 *
 	 * @param array|false $array
-	 * @param string      $glue
+	 * @param string $glue
 	 *
 	 * @return false|string returns false on empty array, string otherwise
 	 */
@@ -174,7 +174,7 @@ abstract class AbstractComponent implements NestableInterface {
 		if ( empty( $array ) ) {
 			return false;
 		}
-		foreach ( (array) $array as $key => $item ) {
+		foreach ( (array)$array as $key => $item ) {
 			if ( $item === false || $item === '' ) {
 				unset( $array[$key] );
 			}
@@ -215,7 +215,7 @@ abstract class AbstractComponent implements NestableInterface {
 	 */
 	protected function getParserOutputHelper() {
 		if ( !defined( 'BSC_INTEGRATION_TEST' ) ) {
-			#@fixme this is foobar to make modals work in integration tests. find a better solution
+			# @fixme this is foobar to make modals work in integration tests. find a better solution
 			# see also \BootstrapComponents\Tests\Integration\BootstrapComponentsJsonTestCaseScriptRunnerTest::setUp
 			return $this->parserOutputHelper;
 		}
@@ -237,7 +237,7 @@ abstract class AbstractComponent implements NestableInterface {
 	 * If attribute is registered, this returns the verified and parsed value for it. If not, or the
 	 * verified value is false, this returns the fallback.
 	 *
-	 * @param string      $attribute
+	 * @param string $attribute
 	 * @param bool|string $fallback
 	 *
 	 * @return bool|string
@@ -264,7 +264,7 @@ abstract class AbstractComponent implements NestableInterface {
 	 * Parses input text from parser request. Does also some fixes to let parser detect paragraphs in content.
 	 *
 	 * @param ParserRequest $parserRequest
-	 * @param bool          $fullParse
+	 * @param bool $fullParse
 	 *
 	 * @return string
 	 * @since 1.1.0
@@ -283,7 +283,7 @@ abstract class AbstractComponent implements NestableInterface {
 				$parserRequest->getFrame()
 			);
 		}
-		if ( $input && (preg_match( '/\n\n/', $input ) || preg_match( '/<p/', $input )) ) {
+		if ( $input && ( preg_match( '/\n\n/', $input ) || preg_match( '/<p/', $input ) ) ) {
 			// if there are paragraph marker we prefix input with a new line so the parser recognizes two paragraphs.
 			$input = "\n" . $input . "\n";
 		}
@@ -300,8 +300,8 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @return array[] containing (array)$class and (array)$style
 	 */
 	protected function processCss( $class, $style ) {
-		$class = (array) $class;
-		$style = (array) $style;
+		$class = (array)$class;
+		$style = (array)$style;
 		if ( $newClass = $this->getValueFor( 'class' ) ) {
 			$class[] = $newClass;
 		}
@@ -332,7 +332,7 @@ abstract class AbstractComponent implements NestableInterface {
 		$this->parserRequest = $parserRequest;
 		$this->sanitizedAttributes = $this->sanitizeAttributes( $parserRequest );
 		$this->id = $this->getValueFor( 'id' ) !== false
-			? (string) $this->getValueFor( 'id' )
+			? (string)$this->getValueFor( 'id' )
 			: $this->getNestingController()->generateUniqueId( $this->getComponentName() );
 		$this->augmentParserOutput();
 	}
@@ -351,11 +351,11 @@ abstract class AbstractComponent implements NestableInterface {
 			if ( !$this->getAttributeManager()->isValid( $attribute ) ) {
 				continue;
 			}
-			list( $attribute, $verifiedValue ) = $this->getAttributeManager()->validateAttributeAndValue(
+			[ $attribute, $verifiedValue ] = $this->getAttributeManager()->validateAttributeAndValue(
 				$attribute,
 				$parserRequest->getParser()->recursiveTagParse( $unParsedValue, $parserRequest->getFrame() )
 			);
-			if ( !is_null( $verifiedValue ) ) {
+			if ( $verifiedValue !== null ) {
 				$parsedAttributes[$attribute] = $verifiedValue;
 			}
 		}

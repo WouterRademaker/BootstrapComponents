@@ -46,33 +46,33 @@ use ReflectionClass;
 class ParserFirstCallInit {
 
 	/**
-	 * @var ComponentLibrary $componentLibrary
+	 * @var ComponentLibrary
 	 */
 	private $componentLibrary;
 
 	/**
-	 * @var NestingController $nestingController
+	 * @var NestingController
 	 */
 	private $nestingController;
 
 	/**
-	 * @var Parser $parser
+	 * @var Parser
 	 */
 	private $parser;
 
 	/**
-	 * @var ParserOutputHelper $parserOutputHelper
+	 * @var ParserOutputHelper
 	 */
 	private $parserOutputHelper;
 
 	/**
 	 * ParserFirstCallInit constructor.
 	 *
-	 * @param Parser            $parser
-	 * @param ComponentLibrary  $componentLibrary
+	 * @param Parser $parser
+	 * @param ComponentLibrary $componentLibrary
 	 * @param NestingController $nestingController
 	 *
-	 * @throws \MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getParserOutputHelper}
+	 * @throws \MWException cascading {@see \BootstrapComponents\ApplicationFactory::getParserOutputHelper}
 	 */
 	public function __construct( $parser, $componentLibrary, $nestingController ) {
 		$this->componentLibrary = $componentLibrary;
@@ -82,12 +82,11 @@ class ParserFirstCallInit {
 	}
 
 	/**
-	 * @throws \MWException  cascading {@see \Parser::setFunctionHook} and {@see Parser::setHook}
+	 * @throws \MWException cascading {@see \Parser::setFunctionHook} and {@see Parser::setHook}
 	 *
 	 * @return bool
 	 */
 	public function process() {
-
 		foreach ( $this->getComponentLibrary()->getRegisteredComponents() as $componentName ) {
 
 			$parserHookString = ComponentLibrary::compileParserHookStringFor( $componentName );
@@ -144,13 +143,11 @@ class ParserFirstCallInit {
 	 * @return Closure
 	 */
 	private function createParserHookCallbackFor( string $componentName ): Closure {
-
 		$componentLibrary = $this->getComponentLibrary();
 		$nestingController = $this->getNestingController();
 		$parserOutputHelper = $this->getParserOutputHelper();
 
-		return function() use ( $componentName, $componentLibrary, $nestingController, $parserOutputHelper ) {
-
+		return static function () use ( $componentName, $componentLibrary, $nestingController, $parserOutputHelper ) {
 			$componentClass = $componentLibrary->getClassFor( $componentName );
 			$objectReflection = new ReflectionClass( $componentClass );
 			/** @var \MediaWiki\Extension\BootstrapComponents\AbstractComponent $object */

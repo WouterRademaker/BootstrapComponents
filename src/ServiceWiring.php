@@ -20,9 +20,9 @@ return [
 		},
 	'BootstrapComponents.ComponentLibrary' =>
 		static function ( MediaWikiServices $services ): ComponentLibrary {
-			$myConfig = $services->getConfigFactory()->makeConfig('BootstrapComponents');
+			$myConfig = $services->getConfigFactory()->makeConfig( 'BootstrapComponents' );
 			$whileList = $myConfig->has( 'BootstrapComponentsWhitelist' )
-				?$myConfig->get( 'BootstrapComponentsWhitelist' ) : true;
+				? $myConfig->get( 'BootstrapComponentsWhitelist' ) : true;
 			return new ComponentLibrary( $whileList );
 		},
 	'BootstrapComponents.NestingController' =>

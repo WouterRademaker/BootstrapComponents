@@ -26,7 +26,6 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use MediaWiki\MediaWikiServices;
 use MWException;
 
 /**
@@ -42,7 +41,7 @@ class NestingController {
 	 * List of ids already in use in the context of the bootstrap components.
 	 * Key is of this array is the component name, value is the next usable id.
 	 *
-	 * @var array $autoincrementPerComponent
+	 * @var array
 	 */
 	private array $autoincrementPerComponent;
 
@@ -52,7 +51,7 @@ class NestingController {
 	 *
 	 * Consists of elements of type {@see Nestable}.
 	 *
-	 * @var array $componentStack
+	 * @var array
 	 */
 	private array $componentStack;
 
@@ -79,7 +78,7 @@ class NestingController {
 		if ( !$current ) {
 			throw new MWException( 'Nesting error. Tried to close an empty stack.' );
 		}
-		if ( $id === false || ($current->getId() != $id) ) {
+		if ( $id === false || ( $current->getId() != $id ) ) {
 			throw new MWException( 'Nesting error. Trying to close a component that is not the currently open one.' );
 		}
 		array_pop( $this->componentStack );
@@ -96,7 +95,7 @@ class NestingController {
 		if ( !isset( $this->autoincrementPerComponent[$componentName] ) ) {
 			$this->autoincrementPerComponent[$componentName] = 0;
 		}
-		return 'bsc_' . $componentName . '_' . ($this->autoincrementPerComponent[$componentName]++);
+		return 'bsc_' . $componentName . '_' . ( $this->autoincrementPerComponent[$componentName]++ );
 	}
 
 	/**
@@ -122,7 +121,7 @@ class NestingController {
 	/**
 	 * Signals the opening of a bootstrap component (thus letting the nc put the nestable component on its stack).
 	 *
-	 * @param NestableInterface $nestable
+	 * @param NestableInterface &$nestable
 	 *
 	 * @throws MWException when open is called with an invalid object
 	 */

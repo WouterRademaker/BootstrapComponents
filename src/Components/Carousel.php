@@ -26,9 +26,9 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
 use MediaWiki\Extension\BootstrapComponents\ParserRequest;
-use \Html;
 
 /**
  * Class Carousel
@@ -40,7 +40,7 @@ use \Html;
  */
 class Carousel extends AbstractComponent {
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
@@ -54,7 +54,7 @@ class Carousel extends AbstractComponent {
 		if ( (bool)$this->getValueFor( 'fade' ) ) {
 			$class[] = 'carousel-fade';
 		}
-		list ( $class, $style ) = $this->processCss( $class, [] );
+		[ $class, $style ] = $this->processCss( $class, [] );
 
 		return [
 			Html::rawElement(

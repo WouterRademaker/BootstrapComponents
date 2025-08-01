@@ -2,12 +2,12 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests;
 
-use \GitInfo;
+use GitInfo;
 
 /**
  * @private
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since   3.0
  *
  * @author  mwjames
@@ -37,7 +37,7 @@ class PHPUnitEnvironment {
 	/**
 	 * @param array $args
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function hasDebugRequest( $args ) {
 		return array_search( '--debug', $args ) || array_search( '--debug-tests', $args );
@@ -49,17 +49,16 @@ class PHPUnitEnvironment {
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function enabledDebugLogs(): bool {
 		return $GLOBALS['wgDebugLogGroups'] !== [] || $GLOBALS['wgDebugLogFile'] !== '';
 	}
 
 	/**
-	 * @return boolean|integer
+	 * @return bool|int
 	 */
 	public function getXdebugInfo() {
-
 		if ( extension_loaded( 'xdebug' ) &&
 			( function_exists( 'xdebug_is_enabled' ) || function_exists( 'xdebug_info' ) ) ) {
 			return phpversion( 'xdebug' );
@@ -69,10 +68,9 @@ class PHPUnitEnvironment {
 	}
 
 	/**
-	 * @return boolean|string
+	 * @return bool|string
 	 */
 	public function getIntlInfo(): string {
-
 		if ( extension_loaded( 'intl' ) ) {
 			return phpversion( 'intl' ) . ' / ' . INTL_ICU_VERSION;
 		}

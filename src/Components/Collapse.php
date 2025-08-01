@@ -26,11 +26,11 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
-use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
+use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
 use MediaWiki\Extension\BootstrapComponents\ParserRequest;
-use \Html;
-use \MWException;
+use MWException;
 
 /**
  * Class Collapse
@@ -42,7 +42,7 @@ use \MWException;
  */
 class Collapse extends AbstractComponent {
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
@@ -51,7 +51,7 @@ class Collapse extends AbstractComponent {
 			clone $this->getParserRequest()
 		);
 
-		list ( $class, $style ) = $this->processCss( 'collapse', [] );
+		[ $class, $style ] = $this->processCss( 'collapse', [] );
 		return $buttonPrintOut . Html::rawElement(
 				'div',
 				[
@@ -62,7 +62,6 @@ class Collapse extends AbstractComponent {
 				$input
 			);
 	}
-
 
 	/**
 	 * Spawns the button for our collapse component.

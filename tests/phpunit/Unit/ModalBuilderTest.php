@@ -48,16 +48,15 @@ class ModalBuilderTest extends TestCase {
 	 * @dataProvider parseDataProvider
 	 */
 	public function testCanParse( $id, $trigger, $content, $header, $footer, $outerClass, $outerStyle, $innerClass, $expectedTrigger, $expectedModal ) {
-
 		$modalInjection = '';
 		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
+			->willReturnCallback( static function ( $id, $text ) use ( &$modalInjection ) {
 				$modalInjection .= $text;
-			} ) );
+			} );
 
 		/** @noinspection PhpParamsInspection */
 		$instance = new ModalBuilder( $id, $trigger, $content, $parserOutputHelper );

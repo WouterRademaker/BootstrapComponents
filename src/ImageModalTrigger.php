@@ -29,12 +29,11 @@ namespace MediaWiki\Extension\BootstrapComponents;
 use Config;
 use ConfigException;
 use Exception;
-use \Linker;
-use \Html;
-use \MediaWiki\MediaWikiServices;
-use MediaWiki\User\UserOptionsLookup;
-use \RequestContext;
-use \Title;
+use Html;
+use Linker;
+use MediaWiki\MediaWikiServices;
+use RequestContext;
+use Title;
 
 /**
  * Class ImageModal
@@ -43,12 +42,12 @@ use \Title;
  */
 class ImageModalTrigger {
 	/**
-	 * @var \File $file
+	 * @var \File
 	 */
 	private $file;
 
 	/**
-	 * @var string $id
+	 * @var string
 	 */
 	private $id;
 
@@ -56,7 +55,7 @@ class ImageModalTrigger {
 	 * ImageModal constructor.
 	 *
 	 * @param string $id
-	 * @param \File  $file
+	 * @param \File $file
 	 */
 	public function __construct( $id, $file ) {
 		$this->id = $id;
@@ -69,12 +68,12 @@ class ImageModalTrigger {
 	 *
 	 * @return false|string
 	 *
-	 * @throws Exception       cascading {@see ImageModalTrigger::wrapAndFinalize}
+	 * @throws Exception cascading {@see ImageModalTrigger::wrapAndFinalize}
 	 * @throws ConfigException cascading {@see ImageModalTrigger::generateTriggerCreateThumb}
 	 */
 	public function generate( array $sanitizedFrameParams, array $handlerParams ) {
 		/** @var \MediaTransformOutput $thumb */
-		list( $thumb, $thumbHandlerParams ) = $this->createThumb(
+		[ $thumb, $thumbHandlerParams ] = $this->createThumb(
 			$this->getFile(),
 			$sanitizedFrameParams,
 			$handlerParams
@@ -101,27 +100,27 @@ class ImageModalTrigger {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function getId() {
 		return $this->id;
 	}
 
 	/**
-	 * @param \File                 $file
+	 * @param \File $file
 	 * @param \MediaTransformOutput $thumb
-	 * @param array                 $sanitizedFrameParams
-	 * @param array                 $thumbHandlerParams
+	 * @param array $sanitizedFrameParams
+	 * @param array $thumbHandlerParams
 	 *
 	 * @return array
 	 */
 	protected function calculateHtmlOptions( $file, $thumb, $sanitizedFrameParams, $thumbHandlerParams ) {
-		if ( $sanitizedFrameParams['thumbnail'] && (!isset( $sanitizedFrameParams['manualthumb'] ) && !$sanitizedFrameParams['framed']) ) {
+		if ( $sanitizedFrameParams['thumbnail'] && ( !isset( $sanitizedFrameParams['manualthumb'] ) && !$sanitizedFrameParams['framed'] ) ) {
 			Linker::processResponsiveImages( $file, $thumb, $thumbHandlerParams );
 		}
 		$options = [
 			'alt'       => $sanitizedFrameParams['alt'],
-			'img-class' => $sanitizedFrameParams['class'],  // removed: . ' img-fluid'; keeping it in, causes line breaks around the trigger.
+			'img-class' => $sanitizedFrameParams['class'], // removed: . ' img-fluid'; keeping it in, causes line breaks around the trigger.
 			'title'     => $sanitizedFrameParams['title'],
 			'valign'    => $sanitizedFrameParams['valign'],
 		];
@@ -144,7 +143,7 @@ class ImageModalTrigger {
 	 * @param array $handlerParams
 	 *
 	 * @return array [ \MediaTransformOutput|false, handlerParams ]
-	 *@throws ConfigException cascading {@see \BootstrapComponents\ImageModal::generateTriggerReevaluateImageDimensions}
+	 * @throws ConfigException cascading {@see \BootstrapComponents\ImageModal::generateTriggerReevaluateImageDimensions}
 	 *
 	 */
 	protected function createThumb( $file, $sanitizedFrameParams, $handlerParams ) {
@@ -157,7 +156,7 @@ class ImageModalTrigger {
 		}
 
 		if ( !$thumbFile
-			|| (!$sanitizedFrameParams['thumbnail'] && !$sanitizedFrameParams['framed'] && !isset( $thumbHandlerParams['width'] ))
+			|| ( !$sanitizedFrameParams['thumbnail'] && !$sanitizedFrameParams['framed'] && !isset( $thumbHandlerParams['width'] ) )
 		) {
 			return [ false, $thumbHandlerParams ];
 		}
@@ -185,7 +184,7 @@ class ImageModalTrigger {
 	 * @param array $handlerParams
 	 *
 	 * @return array thumbnail handler params
-	 *@throws ConfigException cascading {@see \BootstrapComponents\ImageModal::generateTriggerCalculateImageWidth}
+	 * @throws ConfigException cascading {@see \BootstrapComponents\ImageModal::generateTriggerCalculateImageWidth}
 	 *
 	 */
 	protected function reevaluateImageDimensions( $file, $sanitizedFrameParams, $handlerParams ) {
@@ -207,8 +206,8 @@ class ImageModalTrigger {
 	 * Envelops the publication trigger img-tag.
 	 *
 	 * @param string $publicationString
-	 * @param array  $sanitizedFrameParams
-	 * @param int    $publicationWidth
+	 * @param array $sanitizedFrameParams
+	 * @param int $publicationWidth
 	 *
 	 * @throws \Exception cascading {@see ImageModalTrigger::buildThumbnailTrigger}
 	 *
@@ -247,8 +246,8 @@ class ImageModalTrigger {
 	 * Envelops a publication trigger img-tag that is a thumbnail.
 	 *
 	 * @param string $publicationString
-	 * @param array  $sanitizedFrameParams
-	 * @param int    $publicationWidth
+	 * @param array $sanitizedFrameParams
+	 * @param int $publicationWidth
 	 *
 	 * @throws \Exception cascading {@see \RequestContext::getMain}
 	 *
@@ -260,7 +259,7 @@ class ImageModalTrigger {
 		}
 		$zoomIcon = $this->buildZoomIcon( $sanitizedFrameParams );
 		$outerWidth = $publicationWidth + 2;
-		$class = 'thumb t' . ($sanitizedFrameParams['align'] == 'center' ? 'none' : $sanitizedFrameParams['align']);
+		$class = 'thumb t' . ( $sanitizedFrameParams['align'] == 'center' ? 'none' : $sanitizedFrameParams['align'] );
 
 		return Html::rawElement(
 			'div',
@@ -318,7 +317,7 @@ class ImageModalTrigger {
 	 * @param array $handlerParams
 	 *
 	 * @return array thumbnail handler params
-	 *@throws ConfigException cascading {@see ImageModal::getInitialWidthSuggestion} or {@see ImageModal::getPreferredWidth}
+	 * @throws ConfigException cascading {@see ImageModal::getInitialWidthSuggestion} or {@see ImageModal::getPreferredWidth}
 	 *
 	 */
 	private function calculateImageWidth( $file, $sanitizedFrameParams, $handlerParams ) {
@@ -338,7 +337,7 @@ class ImageModalTrigger {
 			// Use width which is smaller: real image width or user preference width
 			// Unless image is scalable vector.
 			if ( !isset( $handlerParams['height'] ) &&
-				($handlerParams['width'] <= 0 || $prefWidth < $handlerParams['width'] || $file->isVectorized())
+				( $handlerParams['width'] <= 0 || $prefWidth < $handlerParams['width'] || $file->isVectorized() )
 			) {
 				$handlerParams['width'] = $prefWidth;
 			}
@@ -361,8 +360,8 @@ class ImageModalTrigger {
 
 	/**
 	 * @param Config $globalConfig
-	 * @param \File   $file
-	 * @param array   $handlerParams
+	 * @param \File $file
+	 * @param array $handlerParams
 	 *
 	 * @return mixed
 	 * @throws ConfigException cascading {@see \Config::get}
@@ -380,14 +379,13 @@ class ImageModalTrigger {
 
 	/**
 	 * @param Config $globalConfig
-	 * @param array   $sanitizedFrameParams
+	 * @param array $sanitizedFrameParams
 	 *
 	 * @return float
 	 *
 	 * @throws ConfigException cascading {@see \Config::get}
 	 */
-	private function getPreferredWidth( Config $globalConfig, array $sanitizedFrameParams ): float
-	{
+	private function getPreferredWidth( Config $globalConfig, array $sanitizedFrameParams ): float {
 		$thumbLimits = $globalConfig->get( 'ThumbLimits' );
 		$widthOption = $this->getWidthOptionForThumbLimits( $thumbLimits );
 
@@ -405,7 +403,6 @@ class ImageModalTrigger {
 	 * @return int|string
 	 */
 	private function getWidthOptionForThumbLimits( array $thumbLimits ) {
-
 		$widthOption = MediaWikiServices::getInstance()->getUserOptionsLookup()->getDefaultOption( 'thumbsize' );
 
 		// we have a problem here: the original \Linker::makeImageLink does get a value for $widthOption,
@@ -430,7 +427,7 @@ class ImageModalTrigger {
 	 */
 	private function limitSizeToSourceOnBitmapImages( $file, $sanitizedFrameParams, $handlerParams ) {
 		if ( $sanitizedFrameParams['frameless']
-			|| (!isset( $sanitizedFrameParams['manualthumb'] ) && !$sanitizedFrameParams['framed'])
+			|| ( !isset( $sanitizedFrameParams['manualthumb'] ) && !$sanitizedFrameParams['framed'] )
 		) {
 			$srcWidth = $file->getWidth( $handlerParams['page'] );
 			if ( $srcWidth && !$file->mustRender() && $handlerParams['width'] > $srcWidth ) {

@@ -34,4 +34,4 @@ $componentLibrary = MediaWikiServices::getInstance()->getService( 'BootstrapComp
 // English
 $magicWords['en'] = $componentLibrary->compileMagicWordsArray();
 
-$magicWords['en']['BSC_NO_IMAGE_MODAL'] = array( 0, '__NOIMAGEMODAL__' );
+$magicWords['en']['BSC_NO_IMAGE_MODAL'] = [ 0, '__NOIMAGEMODAL__' ];

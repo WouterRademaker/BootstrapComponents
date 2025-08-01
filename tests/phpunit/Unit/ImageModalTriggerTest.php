@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\ImageModalTrigger;
-use \MediaWiki\MediaWikiServices;
+use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -26,7 +26,6 @@ class ImageModalTriggerTest extends TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$localFile = $this->getMockBuilder( 'LocalFile' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -52,15 +51,14 @@ class ImageModalTriggerTest extends TestCase {
 	}
 
 	/**
-	 * @param array  $sfp
-	 * @param array  $hp
+	 * @param array $sfp
+	 * @param array $hp
 	 * @param string $expectedRegExp
 	 *
 	 * @dataProvider canParseProvider
 	 * @throws \ConfigException
 	 */
 	public function testCanParse( $sfp, $hp, $expectedRegExp ) {
-
 		$thumb = $this->getMockBuilder( 'ThumbnailImage' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -69,17 +67,17 @@ class ImageModalTriggerTest extends TestCase {
 			->willReturn( 640 );
 		$thumb->expects( $this->any() )
 			->method( 'toHtml' )
-			->will( $this->returnCallback(
-				function( $params ) {
+			->willReturnCallback(
+				static function ( $params ) {
 					$ret = [];
 					foreach ( [ 'alt', 'title', 'img-class' ] as $itemToPrint ) {
 						if ( isset( $params[$itemToPrint] ) && $params[$itemToPrint] ) {
-							$ret[] = ($itemToPrint != 'img-class' ? $itemToPrint : 'class') . '="' . $params[$itemToPrint] . '"';
+							$ret[] = ( $itemToPrint != 'img-class' ? $itemToPrint : 'class' ) . '="' . $params[$itemToPrint] . '"';
 						}
 					}
 					return '<img src="thumbnail::toHtml()/return/value.png" ' . implode( ' ', $ret ) . '>';
 				}
-			) );
+			);
 		$file = $this->getMockBuilder( 'LocalFile' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -350,13 +348,13 @@ class ImageModalTriggerTest extends TestCase {
 			foreach ( $$arrayArg as $key => $val ) {
 				$ret .= "\t'" . $key . '\' => ';
 				switch ( gettype( $val ) ) {
-					case 'boolean' :
+					case 'boolean':
 						$ret .= $val ? 'true' : 'false';
 						break;
-					case 'integer' :
+					case 'integer':
 						$ret .= $val;
 						break;
-					default :
+					default:
 						$ret .= '\'' . $val . '\'';
 						break;
 				}

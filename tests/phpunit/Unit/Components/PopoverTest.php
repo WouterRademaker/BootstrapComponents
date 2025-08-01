@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Popover;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Popover
@@ -27,7 +27,6 @@ class PopoverTest extends ComponentsTestBase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Popover',
 			new Popover(
@@ -40,7 +39,7 @@ class PopoverTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedOutput
 	 *
 	 * @dataProvider placeMeArgumentsProvider

@@ -26,8 +26,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
-use \Html;
 
 /**
  * Class Badge
@@ -39,7 +39,7 @@ use \Html;
  */
 class Badge extends AbstractComponent {
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
@@ -48,7 +48,7 @@ class Badge extends AbstractComponent {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-badge-content-missing' );
 		}
 
-		list ( $class, $style ) = $this->processCss(
+		[ $class, $style ] = $this->processCss(
 			$this->calculateClassAttribute(),
 			[]
 		);

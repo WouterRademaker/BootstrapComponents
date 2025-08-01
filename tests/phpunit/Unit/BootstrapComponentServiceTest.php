@@ -26,13 +26,11 @@ use ReflectionException;
 class BootstrapComponentsServiceTest extends TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			BootstrapComponentsService::class,
 			new BootstrapComponentsService( $this->getMockBuilder( Config::class )->getMock() )
 		);
 	}
-
 
 	public function testCanGetNameOfActiveSkin() {
 		$instance = new BootstrapComponentsService( $this->getMockBuilder( Config::class )->getMock() );
@@ -51,7 +49,7 @@ class BootstrapComponentsServiceTest extends TestCase {
 		$instance->registerComponentAsActive( 'modal' );
 
 		$this->assertEquals(
-			['Foo', 'Bar', 'modal'],
+			[ 'Foo', 'Bar', 'modal' ],
 			$instance->getActiveComponents()
 		);
 	}

@@ -39,7 +39,7 @@ if ( !defined( 'PHPUNIT_FIRST_COLUMN_WIDTH' ) ) {
 /** @var \Composer\Autoload\ClassLoader $autoloader */
 $autoloader = require $path;
 
-#$autoloader->addPsr4( 'BootstrapComponents\\Tests\\Unit\\', __DIR__ . '/phpunit/Unit' );
+# $autoloader->addPsr4( 'BootstrapComponents\\Tests\\Unit\\', __DIR__ . '/phpunit/Unit' );
 #$autoloader->addPsr4( 'BootstrapComponents\\Tests\\Integration\\', __DIR__ . '/phpunit/Integration' );
 $autoloader->addPsr4( 'Mediawiki\\Extension\\BootstrapComponents\\Tests\\', __DIR__ . '/phpunit' );
 @include_once __DIR__ . '/phpunit/Unit/ComponentsTestBase.php';

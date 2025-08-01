@@ -26,8 +26,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use MediaWiki\MediaWikiServices;
-use \MWException;
+use MWException;
 
 /**
  * Class ComponentLibrary
@@ -82,14 +81,14 @@ class ComponentLibrary {
 	 *  ]
 	 * </pre>
 	 *
-	 * @var array $componentDataStore
+	 * @var array
 	 */
 	private array $componentDataStore;
 
 	/**
 	 * The list of registered/allowed bootstrap components, name or alias
 	 *
-	 * @var string[] $registeredComponents
+	 * @var string[]
 	 */
 	private array $registeredComponents;
 
@@ -111,7 +110,6 @@ class ComponentLibrary {
 	 * @param bool|array $componentWhiteList (see {@see ComponentLibrary::$componentWhiteList})
 	 */
 	public function __construct( bool|array $componentWhiteList = true ) {
-
 		$this->registeredComponents = $this->processWhitelist( $componentWhiteList );
 	}
 
@@ -212,14 +210,14 @@ class ComponentLibrary {
 		$allModules = $this->accessComponentDataStore( $componentIdentifier, 'modules' );
 
 		$modules = isset( $allModules['default'] )
-			? (array) $allModules['default']
+			? (array)$allModules['default']
 			: [];
 		if ( $skin === null || !isset( $allModules[$skin] ) ) {
 			return $modules;
 		}
 		return array_merge(
 			$modules,
-			(array) $allModules[$skin]
+			(array)$allModules[$skin]
 		);
 	}
 
@@ -241,8 +239,8 @@ class ComponentLibrary {
 				break;
 			}
 		}
-		if ( is_null( $component ) ) {
-			throw new MWException( 'Trying to get a component name for unregistered class "' . (string) $componentClass . '"!' );
+		if ( $component === null ) {
+			throw new MWException( 'Trying to get a component name for unregistered class "' . (string)$componentClass . '"!' );
 		}
 		return $this->accessComponentDataStore( $component, 'name' );
 	}
@@ -352,12 +350,12 @@ class ComponentLibrary {
 		foreach ( $rawData as $componentName => $componentData ) {
 
 			if ( !is_array( $componentData ) ) {
-				$componentAliases[$componentName] = trim( (string) $componentData );
+				$componentAliases[$componentName] = trim( (string)$componentData );
 				continue;
 			}
 
 			$componentData['name'] = $componentName;
-			$componentData['attributes'] = $this->normalizeAttributes( ($componentData['attributes'] ?? []) );
+			$componentData['attributes'] = $this->normalizeAttributes( ( $componentData['attributes'] ?? [] ) );
 			$componentData['aliases'] = $componentData['aliases'] ?? [];
 			$componentData['modules'] = $componentData['modules'] ?? [];
 			$componentDataStore[$componentName] = $componentData;

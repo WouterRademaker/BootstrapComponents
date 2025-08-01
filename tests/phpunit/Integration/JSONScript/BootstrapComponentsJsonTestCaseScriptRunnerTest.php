@@ -4,12 +4,10 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Integration;
 
 use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
 use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
-use MediaWiki\Extension\BootstrapComponents\HookRegistry;
 use SMW\DIWikiPage;
 use SMW\Tests\JSONScriptTestCaseRunner;
 use SMW\Tests\Utils\JSONScript\JsonTestCaseFileHandler;
 use SMW\Tests\Utils\Validators\StringValidator;
-
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -58,7 +56,7 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 		// here's to hoping, this is only botched in testing environment.
 		ApplicationFactory::getInstance()->resetLookup( 'ParserOutputHelper' );
 
-		#@fixme this is foobar to make modals work in integration tests. find a better solution
+		# @fixme this is foobar to make modals work in integration tests. find a better solution
 		# see also \BootstrapComponents\AbstractComponent::getParserOutputHelper
 		if ( !defined( 'BSC_INTEGRATION_TEST' ) ) {
 			define( 'BSC_INTEGRATION_TEST', true );
@@ -96,7 +94,7 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 	 * @see JSONScriptTestCaseRunner::getListOfAllowedTestCaseFiles
 	 */
 	protected function getAllowedTestCaseFiles() {
-		return array();
+		return [];
 	}
 
 	/**
@@ -105,7 +103,6 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
 	 */
 	protected function runTestCaseFile( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) {
-
 		$this->checkEnvironmentToSkipCurrentTest( $jsonTestCaseFileHandler );
 
 		// Setup
@@ -119,7 +116,6 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
 	 */
 	private function doRunParserTests( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) {
-
 		foreach ( $jsonTestCaseFileHandler->findTestCasesByType( 'parser' ) as $case ) {
 
 			if ( !isset( $case['subject'] ) ) {
@@ -139,15 +135,14 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
 	 */
 	private function prepareTest( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) {
-
 		// Defines settings that can be altered during a test run with each test
 		// having the possibility to change those values, settings will be reset to
 		// the original value (from before the test) after the test has finished.
-		$permittedSettings = array(
+		$permittedSettings = [
 			'wgLanguageCode',
 			'wgContLang',
 			'wgLang'
-		);
+		];
 
 		foreach ( $permittedSettings as $key ) {
 			$this->changeGlobalSettingTo(
@@ -179,7 +174,6 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 	 * @param array $case
 	 */
 	private function assertParserOutputForCase( array $case ) {
-
 		if ( !isset( $case['assert-output'] ) ) {
 			return;
 		}

@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Button;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Button
@@ -27,7 +27,6 @@ class ButtonTest extends ComponentsTestBase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Button::class,
 			new Button(
@@ -40,7 +39,7 @@ class ButtonTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedOutputPattern
 	 *
 	 * @dataProvider placeMeArgumentsProvider
@@ -72,7 +71,6 @@ class ButtonTest extends ComponentsTestBase {
 	 * @throws MWException
 	 */
 	public function testCanInjectRawAttributes() {
-
 		$instance = new Button(
 			$this->getComponentLibrary(),
 			$this->getParserOutputHelper(),

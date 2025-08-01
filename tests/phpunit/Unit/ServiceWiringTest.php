@@ -21,25 +21,24 @@ use PHPUnit\Framework\TestCase;
  */
 class ServiceWiringTest extends TestCase {
 
-
-	public function testCanConstructBootstrapComponentsService()	{
+	public function testCanConstructBootstrapComponentsService() {
 		$this->assertInstanceOf(
 			BootstrapComponentsService::class,
-			MediaWikiServices::getInstance()->getService('BootstrapComponentsService')
+			MediaWikiServices::getInstance()->getService( 'BootstrapComponentsService' )
 		);
 	}
 
-	public function testCanConstructComponentLibrary()	{
+	public function testCanConstructComponentLibrary() {
 		$this->assertInstanceOf(
 			ComponentLibrary::class,
-			MediaWikiServices::getInstance()->getService('BootstrapComponents.ComponentLibrary')
+			MediaWikiServices::getInstance()->getService( 'BootstrapComponents.ComponentLibrary' )
 		);
 	}
 
-	public function testCanConstructNestingController()	{
+	public function testCanConstructNestingController() {
 		$this->assertInstanceOf(
 			NestingController::class,
-			MediaWikiServices::getInstance()->getService('BootstrapComponents.NestingController')
+			MediaWikiServices::getInstance()->getService( 'BootstrapComponents.NestingController' )
 		);
 	}
 }

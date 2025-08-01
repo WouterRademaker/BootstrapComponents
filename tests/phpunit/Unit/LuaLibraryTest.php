@@ -7,7 +7,7 @@ use MediaWiki\Extension\BootstrapComponents\LuaLibrary;
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\LuaLibrary
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since   1.1
  *
  * @author  Tobias Oetterer
@@ -29,7 +29,6 @@ class LuaLibraryTest extends LuaLibraryTestBase {
 				self::$moduleName => __DIR__ . '/' . 'mw.bootstrap.tests.lua',
 			];
 	}
-
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
@@ -60,7 +59,6 @@ class LuaLibraryTest extends LuaLibraryTestBase {
 	 * @return array
 	 */
 	public function dataProviderFunctionTest() {
-
 		return [
 			[ 'parse' ],
 			[ 'getSkin' ],

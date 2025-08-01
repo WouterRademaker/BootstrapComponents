@@ -26,8 +26,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use MediaWiki\Extension\BootstrapComponents\Components\Carousel;
 use ImageGalleryBase;
+use MediaWiki\Extension\BootstrapComponents\Components\Carousel;
 use MediaWiki\MediaWikiServices;
 use Title;
 
@@ -41,13 +41,13 @@ class CarouselGallery extends ImageGalleryBase {
 	/**
 	 * Renders the carousel gallery.
 	 *
-	 * @param ParserOutputHelper $parserOutputHelper used for unit tests
+	 * @param ParserOutputHelper|null $parserOutputHelper used for unit tests
 	 *
 	 * @throws \MWException cascading {@see CarouselGallery::constructCarouselParserRequest} and  {@see AbstractComponent::parseComponent}
 	 * @return string
 	 */
 	public function toHTML( $parserOutputHelper = null ) {
-		$parserOutputHelper = is_null( $parserOutputHelper )
+		$parserOutputHelper = $parserOutputHelper === null
 			? ApplicationFactory::getInstance()->getParserOutputHelper( $this->mParser )
 			: $parserOutputHelper;
 
@@ -93,9 +93,8 @@ class CarouselGallery extends ImageGalleryBase {
 	 * @return string
 	 */
 	private function buildImageStringFromData( $imageData ) {
-
 		/** @var \Title $imageTitle */
-		list( $imageTitle, $imageCaption, $imageAlt, $imageLink, $imageParams ) = $imageData;
+		[ $imageTitle, $imageCaption, $imageAlt, $imageLink, $imageParams ] = $imageData;
 		$imageParams['alt'] = $imageAlt;
 		# @note: this is a local link. has to be an article name :(
 		# @note: assuming here, that the correct link processing is done in image processing
@@ -125,10 +124,10 @@ class CarouselGallery extends ImageGalleryBase {
 	/**
 	 * Extracts the gallery images and builds image tags for every valid image.
 	 *
-	 * @param         $imageList
-	 * @param \Parser $parser
-	 * @param bool    $hideBadImages
-	 * @param Title|null    $contextTitle
+	 * @param $imageList
+	 * @param \Parser|null $parser
+	 * @param bool $hideBadImages
+	 * @param Title|null $contextTitle
 	 *
 	 * @return array
 	 */
@@ -162,7 +161,7 @@ class CarouselGallery extends ImageGalleryBase {
 	 *
 	 * @throws \MWException cascading {@see ApplicationFactory::getNewParserRequest}
 	 *
-	 * @return false|ParserRequest  returns false, if no valid images were detected
+	 * @return false|ParserRequest returns false, if no valid images were detected
 	 */
 	private function constructCarouselParserRequest() {
 		$carouselAttributes = $this->convertImages(

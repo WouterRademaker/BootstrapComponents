@@ -22,7 +22,6 @@ use PHPUnit\Framework\TestCase;
 class ComponentLibraryTest extends TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			ComponentLibrary::class,
 			new ComponentLibrary()
@@ -65,14 +64,13 @@ class ComponentLibraryTest extends TestCase {
 	 */
 	public function testIsRegistered( string $componentName ) {
 		$instance = new ComponentLibrary( true );
-		$this->assertEquals(
-			true,
-			$instance->isRegistered( $componentName )
+		$this->assertTrue(
+						$instance->isRegistered( $componentName )
 		);
 	}
 
 	/**
-	 * @param string   $component
+	 * @param string $component
 	 * @param string[] $expectedAliases
 	 *
 	 * @throws ConfigException
@@ -89,7 +87,7 @@ class ComponentLibraryTest extends TestCase {
 	}
 
 	/**
-	 * @param string   $component
+	 * @param string $component
 	 * @param string[] $expectedAttributes
 	 *
 	 * @throws ConfigException
@@ -164,7 +162,7 @@ class ComponentLibraryTest extends TestCase {
 
 	/**
 	 * @param string $componentName
-	 * @param bool   $isParserFunction
+	 * @param bool $isParserFunction
 	 *
 	 * @throws ConfigException
 	 *
@@ -184,7 +182,7 @@ class ComponentLibraryTest extends TestCase {
 	/**
 	 * @param string $componentName
 	 * @param string|null $skinName
-	 * @param array  $expectedModules
+	 * @param array $expectedModules
 	 *
 	 * @throws ConfigException
 	 *
@@ -217,7 +215,7 @@ class ComponentLibraryTest extends TestCase {
 
 	/**
 	 * @param bool|string[] $whiteList
-	 * @param string[]      $expectedComponents
+	 * @param string[] $expectedComponents
 	 *
 	 * @throws ConfigException
 	 *

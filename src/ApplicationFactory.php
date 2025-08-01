@@ -41,26 +41,26 @@ use ReflectionClass;
 class ApplicationFactory {
 
 	/**
-	 * @var ApplicationFactory $instance
+	 * @var ApplicationFactory
 	 */
 	private static $instance = null;
 
 	/**
 	 * Holds the application singletons
 	 *
-	 * @var array $applicationStore
+	 * @var array
 	 */
 	private $applicationStore;
 
 	/**
 	 * Library, that tells the ApplicationFactory, which class to use to instantiate which application
 	 *
-	 * @var array $applicationClassRegister
+	 * @var array
 	 */
 	private $applicationClassRegister;
 
 	/**
-	 * @var \Psr\Log\LoggerInterface $logger
+	 * @var \Psr\Log\LoggerInterface
 	 */
 	private $logger;
 
@@ -104,9 +104,9 @@ class ApplicationFactory {
 	}
 
 	/**
-	 * @param string             $id
-	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
-	 * @param string             $content must be safe raw html (best run through {@see Parser::recursiveTagParse})
+	 * @param string $id
+	 * @param string $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
+	 * @param string $content must be safe raw html (best run through {@see Parser::recursiveTagParse})
 	 * @param ParserOutputHelper $parserOutputHelper
 	 *
 	 * @see ModalBuilder::__construct
@@ -120,8 +120,8 @@ class ApplicationFactory {
 	}
 
 	/**
-	 * @param array  $argumentsPassedByParser
-	 * @param bool   $isParserFunction
+	 * @param array $argumentsPassedByParser
+	 * @param bool $isParserFunction
 	 * @param string $componentName
 	 *
 	 * @see ParserRequest::__construct
@@ -137,11 +137,11 @@ class ApplicationFactory {
 	}
 
 	/**
-	 * @param \Parser $parser
+	 * @param \Parser|null $parser
 	 *
 	 * @see ParserOutputHelper
 	 *
-	 * @throws MWException  cascading {@see ApplicationFactory::getApplication}
+	 * @throws MWException cascading {@see ApplicationFactory::getApplication}
 	 *
 	 * @return ParserOutputHelper
 	 */
@@ -184,7 +184,7 @@ class ApplicationFactory {
 	 * @return bool
 	 */
 	public function resetLookup( ?string $application = null ): bool {
-		if ( is_null( $application ) ) {
+		if ( $application === null ) {
 			$this->applicationStore = [];
 			return true;
 		} elseif ( isset( $this->applicationStore[$application] ) ) {
@@ -200,7 +200,7 @@ class ApplicationFactory {
 	 *
 	 * @param string $name
 	 *
-	 * @throws MWException  when no class is registered for the requested application or the creation of the object fails.
+	 * @throws MWException when no class is registered for the requested application or the creation of the object fails.
 	 *
 	 * @return object
 	 */

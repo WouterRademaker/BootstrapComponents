@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 
-use MediaWiki\Extension\BootstrapComponents\Hooks\ParserFirstCallInit as ParserFirstCallInit;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
-use \Parser;
+use MediaWiki\Extension\BootstrapComponents\Hooks\ParserFirstCallInit;
+use Parser;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 class ParserFirstCallInitTest extends TestCase {
 
 	public function testCanConstruct() {
-
 		$parser = $this->getMockBuilder( Parser::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -48,9 +47,9 @@ class ParserFirstCallInitTest extends TestCase {
 	 */
 	public function testHookParserFirstCallInit() {
 		$prefix = ComponentLibrary::PARSER_HOOK_PREFIX;
-		$observerParser = $this->getMockBuilder(Parser::class )
+		$observerParser = $this->getMockBuilder( Parser::class )
 			->disableOriginalConstructor()
-			->setMethods( [ 'setFunctionHook', 'setHook' ] )
+			->onlyMethods( [ 'setFunctionHook', 'setHook' ] )
 			->getMock();
 		$observerParser->expects( $this->exactly( 5 ) )
 			->method( 'setFunctionHook' )
@@ -92,20 +91,20 @@ class ParserFirstCallInitTest extends TestCase {
 	 */
 	public function testCanCreateParserHooks() {
 		$registeredParserHooks = [];
-		$extractionParser = $this->getMockBuilder(Parser::class )
+		$extractionParser = $this->getMockBuilder( Parser::class )
 			->disableOriginalConstructor()
-			->setMethods( [ 'setFunctionHook', 'setHook' ] )
+			->onlyMethods( [ 'setFunctionHook', 'setHook' ] )
 			->getMock();
 		$extractionParser->expects( $this->exactly( 5 ) )
 			->method( 'setFunctionHook' )
-			->will( $this->returnCallback( function( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
+			->willReturnCallback( static function ( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
 				$registeredParserHooks[$parserHookString] = [ $callBack, ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION ];
-			} ) );
+			} );
 		$extractionParser->expects( $this->exactly( 9 ) )
 			->method( 'setHook' )
-			->will( $this->returnCallback( function( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
+			->willReturnCallback( static function ( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
 				$registeredParserHooks[$parserHookString] = [ $callBack, ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION ];
-			} ) );
+			} );
 
 		$componentLibrary = new ComponentLibrary( true );
 		$nestingController = $this->getMockBuilder( 'MediaWiki\Extension\BootstrapComponents\NestingController' )
@@ -119,9 +118,9 @@ class ParserFirstCallInitTest extends TestCase {
 			$instance->process()
 		);
 
-		$this->assertEquals(
+		$this->assertCount(
 			14,
-			count( $registeredParserHooks )
+			$registeredParserHooks
 		);
 
 		foreach ( $registeredParserHooks as $registeredParserHook => $data ) {
@@ -130,9 +129,9 @@ class ParserFirstCallInitTest extends TestCase {
 	}
 
 	/**
-	 * @param string   $registeredParserHook
+	 * @param string $registeredParserHook
 	 * @param \Closure $callback
-	 * @param string   $handlerType
+	 * @param string $handlerType
 	 */
 	private function doTestParserHook( $registeredParserHook, $callback, $handlerType ) {
 		$parser = $this->getMockBuilder( 'Parser' )

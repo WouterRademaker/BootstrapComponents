@@ -41,7 +41,6 @@ use Parser;
 use ParserOutput;
 use Title;
 
-
 /**
  * Class ParserOutputHelper
  *
@@ -54,22 +53,21 @@ class ParserOutputHelper {
 	/**
 	 * To make sure, we only add the tracking category once.
 	 *
-	 * @var bool $articleTracked
+	 * @var bool
 	 */
 	private $articleTracked;
 
 	/**
 	 * To make sure, we only add the error tracking category once.
 	 *
-	 * @var bool $articleTrackedOnError
+	 * @var bool
 	 */
 	private $articleTrackedOnError;
 
 	/**
-	 * @var Parser $parser
+	 * @var Parser
 	 */
 	private $parser;
-
 
 	/**
 	 * ParserOutputHelper constructor.
@@ -177,11 +175,10 @@ class ParserOutputHelper {
 		return Html::rawElement(
 			'span',
 			[ 'class' => 'error' ],
-			(new Message( trim( $errorMessageName ) ))->inContentLanguage()->page(
+			( new Message( trim( $errorMessageName ) ) )->inContentLanguage()->page(
 				$this->getParser()->getPage()
 			)->parse()
 		);
-
 	}
 
 	/**
@@ -194,16 +191,16 @@ class ParserOutputHelper {
 	/**
 	 * Adds current page to the indicated tracking category, if not done already.
 	 *
-	 * @param String $trackingCategoryMessageName name of the message, containing the tracking category
+	 * @param string $trackingCategoryMessageName name of the message, containing the tracking category
 	 */
 	private function placeTrackingCategory( string $trackingCategoryMessageName ): void {
-		$categoryMessage = (new Message( $trackingCategoryMessageName ))->inContentLanguage();
+		$categoryMessage = ( new Message( $trackingCategoryMessageName ) )->inContentLanguage();
 		$parserOutput = $this->parser->getOutput();
 		if ( !$categoryMessage->isDisabled() && is_a( $parserOutput, ParserOutput::class ) ) {
 			// Q: when do we expect Parser->getOutput() no to be a ParserOutput? A:During tests.
 			$cat = Title::makeTitleSafe( NS_CATEGORY, $categoryMessage->text() );
 			if ( $cat ) {
-				$sort = (string)$parserOutput->getPageProperty('defaultsort') ?? '';
+				$sort = (string)$parserOutput->getPageProperty( 'defaultsort' ) ?? '';
 				$parserOutput->addCategory( $cat->getDBkey(), $sort );
 			} else {
 				wfDebug( __METHOD__ . ": [[MediaWiki:{$trackingCategoryMessageName}]] is not a valid title!\n" );

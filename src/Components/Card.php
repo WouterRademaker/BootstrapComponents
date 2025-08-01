@@ -26,12 +26,12 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
-use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
+use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
-use \Html;
-use \MWException;
+use MWException;
 
 /**
  * Class Card
@@ -46,23 +46,23 @@ class Card extends AbstractComponent {
 	/**
 	 * Indicates, whether this panel is collapsible
 	 *
-	 * @var bool $collapsible
+	 * @var bool
 	 */
 	private bool $collapsible;
 
 	/**
 	 * If true, indicates that we are inside an accordion
 	 *
-	 * @var bool $insideAccordion
+	 * @var bool
 	 */
 	private bool $insideAccordion;
 
 	/**
 	 * Card constructor.
 	 *
-	 * @param ComponentLibrary   $componentLibrary
+	 * @param ComponentLibrary $componentLibrary
 	 * @param ParserOutputHelper $parserOutputHelper
-	 * @param NestingController  $nestingController
+	 * @param NestingController $nestingController
 	 *
 	 * @throws MWException
 	 */
@@ -70,23 +70,22 @@ class Card extends AbstractComponent {
 		parent::__construct( $componentLibrary, $parserOutputHelper, $nestingController );
 		$this->collapsible = false;
 		$parent = $this->getParentComponent();
-		$this->insideAccordion = ($parent && ($this->getParentComponent()->getComponentName() == 'accordion'));
+		$this->insideAccordion = ( $parent && ( $this->getParentComponent()->getComponentName() == 'accordion' ) );
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
 	protected function placeMe( $input ) {
-
 		$this->collapsible = $this->getValueFor( 'collapsible' ) || $this->isInsideAccordion();
 
 		$outerClass = $this->calculateOuterClassAttribute();
 		$innerClass = $this->calculateInnerClassAttribute();
 		$bodyClass = $this->calculateBodyClassAttribute();
 
-		list ( $outerClass, $style ) = $this->processCss( $outerClass, [] );
+		[ $outerClass, $style ] = $this->processCss( $outerClass, [] );
 
 		$innerAttributes = [
 			'id'    => $this->getId(),
@@ -142,7 +141,6 @@ class Card extends AbstractComponent {
 	 * @return bool|array
 	 */
 	private function calculateInnerClassAttribute() {
-
 		$class = false;
 		if ( $this->isCollapsible() ) {
 			$class = [ 'card-collapse', 'collapse', 'fade' ];
@@ -159,7 +157,6 @@ class Card extends AbstractComponent {
 	 * @return string[]
 	 */
 	private function calculateOuterClassAttribute() {
-
 		$class = [ 'card' ];
 		if ( $this->hasValueFor( 'background' ) ) {
 			$class[] = 'bg-' . $this->getValueFor( 'background', 'primary' );
@@ -185,7 +182,7 @@ class Card extends AbstractComponent {
 		return false;
 	}
 
-	private function injectCssClass(string $subject, string $tag, string $class ): string {
+	private function injectCssClass( string $subject, string $tag, string $class ): string {
 		$outerMatches = [];
 		if ( !preg_match( '/^(.*<)' . $tag . '(.[^>]*)(>.*)$/', $subject, $outerMatches ) ) {
 			// tag not found in subject

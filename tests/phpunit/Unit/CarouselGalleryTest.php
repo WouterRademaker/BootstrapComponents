@@ -3,10 +3,9 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\CarouselGallery;
-use MediaWiki\Extension\BootstrapComponents\ParserRequest;
-use \MWException;
+use MWException;
 use PHPUnit\Framework\TestCase;
-use \Title;
+use Title;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\CarouselGallery
@@ -24,7 +23,6 @@ use \Title;
 class CarouselGalleryTest extends TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'MediaWiki\\Extension\\BootstrapComponents\\CarouselGallery',
 			new CarouselGallery( 'carousel' )
@@ -32,8 +30,8 @@ class CarouselGalleryTest extends TestCase {
 	}
 
 	/**
-	 * @param array  $imageList
-	 * @param array  $additionalAttributes
+	 * @param array $imageList
+	 * @param array $additionalAttributes
 	 * @param string $expectedOutput
 	 *
 	 * @throws MWException
@@ -45,7 +43,7 @@ class CarouselGalleryTest extends TestCase {
 			->getMock();
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'renderErrorMessage' )
-			->will( $this->returnArgument( 0 ) );
+			->willReturnArgument( 0 );
 
 		$instance = new CarouselGallery( 'carousel' );
 		$instance->mParser = $this->getMockBuilder( 'Parser' )
@@ -53,7 +51,7 @@ class CarouselGalleryTest extends TestCase {
 			->getMock();
 		$instance->mParser->expects( $this->any() )
 			->method( 'recursiveTagParse' )
-			->will( $this->returnArgument( 0 ) );
+			->willReturnArgument( 0 );
 
 		foreach ( $imageList as $imageData ) {
 			$instance->add( Title::newFromText( $imageData[0] ), $imageData[1], $imageData[2], $imageData[3], $imageData[4] );
@@ -85,14 +83,14 @@ class CarouselGalleryTest extends TestCase {
 				[
 					0 => '<div class="carousel slide carousel-fade firefly" style="float:space" id="youcanttakethesky" data-ride="carousel">' . PHP_EOL
 						. '<ol class="carousel-indicators">' . PHP_EOL
-						. "\t". '<li data-target="#youcanttakethesky" data-slide-to="0" class="active"></li>' . PHP_EOL
-						. "\t". '<li data-target="#youcanttakethesky" data-slide-to="1"></li>' . PHP_EOL
-						. "\t". '<li data-target="#youcanttakethesky" data-slide-to="2"></li>' . PHP_EOL
+						. "\t" . '<li data-target="#youcanttakethesky" data-slide-to="0" class="active"></li>' . PHP_EOL
+						. "\t" . '<li data-target="#youcanttakethesky" data-slide-to="1"></li>' . PHP_EOL
+						. "\t" . '<li data-target="#youcanttakethesky" data-slide-to="2"></li>' . PHP_EOL
 						. '</ol>' . PHP_EOL
 						. '<div class="carousel-inner">' . PHP_EOL
-						. "\t". '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
-						. "\t". '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
-						. "\t". '<div class="carousel-item">[[File:MirandaSecretFiles.pdf|(c) by Hands of Blue|page=13|float=none|class=img-fluid]]</div>' . PHP_EOL
+						. "\t" . '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
+						. "\t" . '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
+						. "\t" . '<div class="carousel-item">[[File:MirandaSecretFiles.pdf|(c) by Hands of Blue|page=13|float=none|class=img-fluid]]</div>' . PHP_EOL
 						. '</div><a class="carousel-control-prev" href="#youcanttakethesky" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#youcanttakethesky" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 					'isHTML' => true,
 					'noparse' => true,
@@ -107,12 +105,12 @@ class CarouselGalleryTest extends TestCase {
 				[
 					0 => '<div class="carousel slide" id="bsc_carousel_0" data-ride="carousel">' . PHP_EOL
 						. '<ol class="carousel-indicators">' . PHP_EOL
-						. "\t". '<li data-target="#bsc_carousel_0" data-slide-to="0" class="active"></li>' . PHP_EOL
-						. "\t". '<li data-target="#bsc_carousel_0" data-slide-to="1"></li>' . PHP_EOL
+						. "\t" . '<li data-target="#bsc_carousel_0" data-slide-to="0" class="active"></li>' . PHP_EOL
+						. "\t" . '<li data-target="#bsc_carousel_0" data-slide-to="1"></li>' . PHP_EOL
 						. '</ol>' . PHP_EOL
 						. '<div class="carousel-inner">' . PHP_EOL
-						. "\t". '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
-						. "\t". '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
+						. "\t" . '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
+						. "\t" . '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
 						. '</div><a class="carousel-control-prev" href="#bsc_carousel_0" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_0" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 					'isHTML' => true,
 					'noparse' => true,

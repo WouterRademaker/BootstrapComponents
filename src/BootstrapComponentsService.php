@@ -5,13 +5,12 @@ namespace MediaWiki\Extension\BootstrapComponents;
 use Config;
 use RequestContext;
 
-class BootstrapComponentsService
-{
+class BootstrapComponentsService {
 
 	/**
 	 * List of active components on the page
 	 *
-	 * @var array $activeComponents
+	 * @var array
 	 */
 	private array $activeComponents;
 
@@ -28,7 +27,7 @@ class BootstrapComponentsService
 	/**
 	 * Holds the name of the skin we use (or false, if there is no skin).
 	 *
-	 * @var string $nameOfActiveSkin
+	 * @var string
 	 */
 	private string $nameOfActiveSkin;
 
@@ -37,7 +36,6 @@ class BootstrapComponentsService
 		$this->activeComponents = [];
 		$this->modalsSuppressedByMagicWord = false;
 	}
-
 
 	/**
 	 * @return bool
@@ -88,11 +86,11 @@ class BootstrapComponentsService
 	 * @return bool
 	 */
 	public function vectorSkinInUse(): bool {
-		return in_array( strtolower( $this->getNameOfActiveSkin() ), [ 'vector', 'vector-2022' ] ) ;
+		return in_array( strtolower( $this->getNameOfActiveSkin() ), [ 'vector', 'vector-2022' ] );
 	}
 
 	/**
-	 * @param bool $useConfig   set this to true, if we can't rely on {@see \RequestContext::getSkin}
+	 * @param bool $useConfig set this to true, if we can't rely on {@see \RequestContext::getSkin}
 	 *
 	 * @return string
 	 */

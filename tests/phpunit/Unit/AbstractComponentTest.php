@@ -29,20 +29,19 @@ class AbstractComponentTest extends ComponentsTestBase {
 	/**
 	 * @return Stub
 	 */
-	protected function createStub( string $originalClassName ): Stub
-	{
+	protected function createStub( string $originalClassName ): Stub {
 		$componentLibrary = $this->getMockBuilder( $originalClassName )
 			->disableOriginalConstructor()
 			->getMock();
 		$componentLibrary->expects( $this->any() )
 			->method( 'getNameFor' )
-			->will( $this->returnValue( $this->name ) );
+			->willReturn( $this->name );
 		$componentLibrary->expects( $this->any() )
 			->method( 'getAttributesFor' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 		$componentLibrary->expects( $this->any() )
 			->method( 'getAliasesFor' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$stub = $this->getMockForAbstractClass(
 			AbstractComponent::class,
@@ -50,27 +49,26 @@ class AbstractComponentTest extends ComponentsTestBase {
 		);
 		$stub->expects( $this->any() )
 			->method( 'placeMe' )
-			->will( $this->returnValue( $this->componentPlacing ) );
+			->willReturn( $this->componentPlacing );
 		return $stub;
 	}
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
 			AbstractComponent::class,
-			$this->createStub(ComponentLibrary::class)
+			$this->createStub( ComponentLibrary::class )
 		);
 		$this->assertInstanceOf(
 			NestableInterface::class,
-			$this->createStub(ComponentLibrary::class)
+			$this->createStub( ComponentLibrary::class )
 		);
 	}
 
 	public function testGetId() {
-		$id = $this->createStub(ComponentLibrary::class)->getId();
+		$id = $this->createStub( ComponentLibrary::class )->getId();
 
-		$this->assertEquals(
-			null,
-			$id
+		$this->assertNull(
+						$id
 		);
 	}
 
@@ -83,7 +81,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 			[]
 		);
 		/** @noinspection PhpParamsInspection */
-		$parsedString = $this->createStub(ComponentLibrary::class)->parseComponent(
+		$parsedString = $this->createStub( ComponentLibrary::class )->parseComponent(
 			$parserRequest
 		);
 

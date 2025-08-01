@@ -24,7 +24,6 @@ use PHPUnit\Framework\TestCase;
 class ApplicationFactoryTest extends TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			ApplicationFactory::class,
 			new ApplicationFactory()
@@ -81,7 +80,7 @@ class ApplicationFactoryTest extends TestCase {
 
 	/**
 	 * @param array $arguments
-	 * @param bool  $isParserFunction
+	 * @param bool $isParserFunction
 	 *
 	 * @throws \MWException
 	 *
@@ -113,7 +112,7 @@ class ApplicationFactoryTest extends TestCase {
 
 	/**
 	 * @param array $arguments
-	 * @param bool  $isParserFunction
+	 * @param bool $isParserFunction
 	 *
 	 * @dataProvider parserRequestFailureProvider
 	 */

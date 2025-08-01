@@ -6,7 +6,7 @@ use MediaWiki\Extension\BootstrapComponents\Components\Accordion;
 use MediaWiki\Extension\BootstrapComponents\Components\Card;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Card
@@ -29,7 +29,6 @@ class CardTest extends ComponentsTestBase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Card::class,
 			new Card(
@@ -42,7 +41,7 @@ class CardTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedOutput
 	 *
 	 * @throws MWException
@@ -66,7 +65,7 @@ class CardTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedOutput
 	 *
 	 * @throws MWException
@@ -88,9 +87,9 @@ class CardTest extends ComponentsTestBase {
 			->getMock();
 		$nestingController->expects( $this->any() )
 			->method( 'generateUniqueId' )
-			->will( $this->returnCallback( function( $componentName ) {
+			->willReturnCallback( static function ( $componentName ) {
 				return 'bsc_' . $componentName . '_NULL';
-			} ) );
+			} );
 		$nestingController->expects( $this->any() )
 			->method( 'getCurrentElement' )
 			->willReturn( $accordion );
@@ -141,11 +140,11 @@ class CardTest extends ComponentsTestBase {
 					'collapsible' => '',
 					'body-style'  => 'padding:5px',
 					'header'      => 'HEADING TEXT',
-					'header-image'=> '[[File:Serenity.png]]',
-					'header-style'=> 'padding:5px',
+					'header-image' => '[[File:Serenity.png]]',
+					'header-style' => 'padding:5px',
 					'footer'      => 'FOOTER TEXT',
-					'footer-image'=> '[[File:Serenity.png|class=card-img-bottom]]',
-					'footer-style'=> 'padding:5px',
+					'footer-image' => '[[File:Serenity.png|class=card-img-bottom]]',
+					'footer-style' => 'padding:5px',
 				],
 				'<div class="card border-info dummy nice" style="float:right;background-color:green">'
 				. '<div class="card-header" style="padding:5px" data-toggle="collapse" data-target="#badgers_bowler" aria-controls="badgers_bowler" aria-expanded="true" id="badgers_bowler_header">'

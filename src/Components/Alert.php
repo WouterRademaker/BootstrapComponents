@@ -26,8 +26,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
-use \Html;
 
 /**
  * Class Alert
@@ -41,17 +41,16 @@ class Alert extends AbstractComponent {
 	/**
 	 * Indicates, whether this alert is dismissible
 	 *
-	 * @var boolean $dismissible
+	 * @var bool
 	 */
 	private $dismissible;
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
 	protected function placeMe( $input ) {
-
 		$this->dismissible = (bool)$this->getValueFor( 'dismissible' );
 
 		$class = $this->calculateAlertClassAttribute();
@@ -60,7 +59,7 @@ class Alert extends AbstractComponent {
 			$inside .= $this->renderDismissButton();
 		}
 
-		list ( $class, $style ) = $this->processCss( $class, [] );
+		[ $class, $style ] = $this->processCss( $class, [] );
 		return Html::rawElement(
 			'div',
 			[

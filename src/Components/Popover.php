@@ -26,8 +26,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
-use \Html;
 
 /**
  * Class Popover
@@ -39,9 +39,10 @@ use \Html;
  */
 class Popover extends AbstractComponent {
 
-	#@todo replace heading with title. account for deprecation! fix language files!
+	# @todo replace heading with title. account for deprecation! fix language files!
+
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
@@ -55,7 +56,7 @@ class Popover extends AbstractComponent {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-popover-text-missing' );
 		}
 
-		list( $tag, $text, $attributes ) = $this->buildHtmlElements( $input, (string)$text, (string)$heading );
+		[ $tag, $text, $attributes ] = $this->buildHtmlElements( $input, (string)$text, (string)$heading );
 
 		// I cannot use the button class here, because it needs a target and also does not accept pre-processed attributes.
 		return Html::rawElement(
@@ -73,9 +74,9 @@ class Popover extends AbstractComponent {
 	 * @return array $tag, $text, $attributes
 	 */
 	private function buildHtmlElements( $input, $text, $heading ) {
-		list ( $class, $style ) = $this->processCss( $this->calculatePopoverClassAttribute(), [] );
+		[ $class, $style ] = $this->processCss( $this->calculatePopoverClassAttribute(), [] );
 
-		list ( $text, $target ) = $this->stripLinksFrom( $text, '' );
+		[ $text, $target ] = $this->stripLinksFrom( $text, '' );
 
 		$attributes = [
 			'class'          => $this->arrayToString( $class, ' ' ),

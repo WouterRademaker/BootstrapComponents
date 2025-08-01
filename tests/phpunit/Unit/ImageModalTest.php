@@ -2,14 +2,14 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
+use ConfigException;
 use File;
 use LocalFile;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\ImageModal;
-use \ConfigException;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
-use \MediaWiki\MediaWikiServices;
+use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 use ThumbnailImage;
 use Title;
@@ -37,7 +37,6 @@ class ImageModalTest extends TestCase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$file = $this->createMock( File::class );
 
 		$this->assertInstanceOf(
@@ -120,7 +119,7 @@ class ImageModalTest extends TestCase {
 		$instance = $this->createImageModalWithMocks( null, null, $file );
 		$time = false;
 		$res = '';
-		$fp =  [ 'manualthumb' => 'ImageInvalid.png' ];
+		$fp = [ 'manualthumb' => 'ImageInvalid.png' ];
 		$hp = [];
 
 		$resultOfParseCall = $instance->parse( $fp, $hp, $time, $res );
@@ -146,17 +145,17 @@ class ImageModalTest extends TestCase {
 			->willReturn( 52 );
 		$thumb->expects( $this->any() )
 			->method( 'toHtml' )
-			->will( $this->returnCallback(
-				function( $params ) {
+			->willReturnCallback(
+				static function ( $params ) {
 					$ret = [];
 					foreach ( [ 'alt', 'title', 'img-class' ] as $itemToPrint ) {
 						if ( isset( $params[$itemToPrint] ) && $params[$itemToPrint] ) {
-							$ret[] = ($itemToPrint != 'img-class' ? $itemToPrint : 'class') . '="' . $params[$itemToPrint] . '"';
+							$ret[] = ( $itemToPrint != 'img-class' ? $itemToPrint : 'class' ) . '="' . $params[$itemToPrint] . '"';
 						}
 					}
 					return '<img src=TEST_OUTPUT ' . implode( ' ', $ret ) . '>';
 				}
-			) );
+			);
 		$file = $this->createMock( LocalFile::class );
 		$file->expects( $this->any() )
 			->method( 'allowInlineDisplay' )
@@ -191,8 +190,8 @@ class ImageModalTest extends TestCase {
 	}
 
 	/**
-	 * @param array  $fp
-	 * @param array  $hp
+	 * @param array $fp
+	 * @param array $hp
 	 * @param string $expectedTrigger
 	 * @param string $expectedModal
 	 *
@@ -202,7 +201,6 @@ class ImageModalTest extends TestCase {
 	 * @dataProvider canParseDataProvider
 	 */
 	public function testCanParse( $fp, $hp, $expectedTrigger, $expectedModal ) {
-
 		$title = $this->createMock( Title::class );
 		$title->expects( $this->any() )
 			->method( 'getLocalUrl' )
@@ -214,17 +212,17 @@ class ImageModalTest extends TestCase {
 			->willReturn( 640 );
 		$thumb->expects( $this->any() )
 			->method( 'toHtml' )
-			->will( $this->returnCallback(
-				function( $params ) {
+			->willReturnCallback(
+				static function ( $params ) {
 					$ret = [];
 					foreach ( [ 'alt', 'title', 'img-class' ] as $itemToPrint ) {
 						if ( isset( $params[$itemToPrint] ) && $params[$itemToPrint] ) {
-							$ret[] = ($itemToPrint != 'img-class' ? $itemToPrint : 'class') . '="' . $params[$itemToPrint] . '"';
+							$ret[] = ( $itemToPrint != 'img-class' ? $itemToPrint : 'class' ) . '="' . $params[$itemToPrint] . '"';
 						}
 					}
 					return '<img src=TEST_OUTPUT ' . implode( ' ', $ret ) . '>';
 				}
-			) );
+			);
 		$file = $this->createMock( LocalFile::class );
 		$file->expects( $this->any() )
 			->method( 'allowInlineDisplay' )
@@ -248,19 +246,19 @@ class ImageModalTest extends TestCase {
 		$nestingController = $this->createMock( NestingController::class );
 		$nestingController->expects( $this->any() )
 			->method( 'generateUniqueId' )
-			->will( $this->returnCallback(
-				function( $component ) {
+			->willReturnCallback(
+				static function ( $component ) {
 					return 'bsc_' . $component . '_test';
 				}
-			) );
+			);
 
 		$modalInjection = '';
 		$parserOutputHelper = $this->createMock( ParserOutputHelper::class );
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
+			->willReturnCallback( static function ( $id, $text ) use ( &$modalInjection ) {
 				$modalInjection .= $text;
-			} ) );
+			} );
 
 		$instance = $this->createImageModalWithMocks( null, $title, $file, $nestingController, null, $parserOutputHelper );
 		$time = false;
@@ -280,7 +278,7 @@ class ImageModalTest extends TestCase {
 				$resultOfParseCall ?: $res,
 				'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
 				. '++ ' . $expectedTrigger . PHP_EOL
-				. '--  ' . ($resultOfParseCall ?: $res)
+				. '--  ' . ( $resultOfParseCall ?: $res )
 			);
 		}
 		$this->assertEquals(
@@ -294,8 +292,7 @@ class ImageModalTest extends TestCase {
 	 * @throws ConfigException cascading {@see \Config::get}
 	 * @return array[]
 	 */
-	public function canParseDataProvider(): array
-	{
+	public function canParseDataProvider(): array {
 		$globalConfig = MediaWikiServices::getInstance()->getMainConfig();
 		$scriptPath = $globalConfig->get( 'ScriptPath' );
 		/*
@@ -406,7 +403,7 @@ class ImageModalTest extends TestCase {
 	 * @return string
 	 */
 	private function generatePhpCodeForManualProviderDataOneCase(
-		/** @noinspection PhpUnusedParameterInspection  */
+		/** @noinspection PhpUnusedParameterInspection */
 		$frameParams, $handlerParams
 	) {
 		$ret = PHP_EOL;
@@ -415,13 +412,13 @@ class ImageModalTest extends TestCase {
 			foreach ( $$arrayArg as $key => $val ) {
 				$ret .= "\t'" . $key . '\' => ';
 				switch ( gettype( $val ) ) {
-					case 'boolean' :
+					case 'boolean':
 						$ret .= $val ? 'true' : 'false';
 						break;
-					case 'integer' :
+					case 'integer':
 						$ret .= $val;
 						break;
-					default :
+					default:
 						$ret .= '\'' . $val . '\'';
 						break;
 				}

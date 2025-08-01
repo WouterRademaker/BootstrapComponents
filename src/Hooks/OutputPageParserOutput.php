@@ -33,8 +33,8 @@ use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\ParserOutput;
  */
-use \OutputPage;
-use \ParserOutput;
+use OutputPage;
+use ParserOutput;
 
 /**
  * Class OutputPageParserOutput
@@ -66,19 +66,19 @@ class OutputPageParserOutput {
 	private BootstrapComponentsService $bootstrapComponentService;
 
 	/**
-	 * @var OutputPage $outputPage
+	 * @var OutputPage
 	 */
 	private OutputPage $outputPage;
 
 	/**
-	 * @var ParserOutput $parserOutput
+	 * @var ParserOutput
 	 */
 	private ParserOutput $parserOutput;
 
 	/**
 	 * OutputPageParserOutput constructor.
 	 *
-	 * @param OutputPage $outputPage
+	 * @param OutputPage &$outputPage
 	 * @param ParserOutput $parserOutput
 	 * @param BootstrapComponentsService $service
 	 */
@@ -93,7 +93,7 @@ class OutputPageParserOutput {
 	/**
 	 * @return void
 	 */
-	public function process(): void	{
+	public function process(): void {
 		$deferredText = $this->getContentForLaterInjection( $this->getParserOutput() );
 		if ( !empty( $deferredText ) ) {
 			$this->getOutputPage()->addHTML( $deferredText );
@@ -113,7 +113,7 @@ class OutputPageParserOutput {
 	 */
 	protected function getContentForLaterInjection( ParserOutput $parserOutput ): string {
 		$deferredContent = $parserOutput
-			->getExtensionData(BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
+			->getExtensionData( BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
 
 		if ( empty( $deferredContent ) || !is_array( $deferredContent ) ) {
 			return '';

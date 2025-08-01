@@ -24,7 +24,6 @@ use PHPUnit\Framework\TestCase;
 class OutputPageParserOutputTest extends TestCase {
 
 	public function testCanConstruct() {
-
 		$outputPage = $this->createMock( OutputPage::class );
 
 		$instance = new OutputPageParserOutput(
@@ -45,17 +44,17 @@ class OutputPageParserOutputTest extends TestCase {
 		$outputPage = $this->createMock( OutputPage::class );
 		$outputPage->expects( $this->once() )
 			->method( 'addHTML' )
-			->will( $this->returnCallback( function( $injection ) use ( &$content ) {
+			->willReturnCallback( static function ( $injection ) use ( &$content ) {
 				$content .= $injection;
-			} ) );
+			} );
 		$outputPage->expects( $this->once() )
 			->method( 'addModules' )
 			->with(
-				$this->equalTo( [ 'ext.bootstrapComponents.vector-fix' ] )
+				[ 'ext.bootstrapComponents.vector-fix' ]
 			);
 
 		$observerParserOutput = $this->createMock( ParserOutput::class );
-		$observerParserOutput->expects( $this->exactly( 1 ) )
+		$observerParserOutput->expects( $this->once() )
 			->method( 'getExtensionData' )
 			->with(
 				$this->stringContains( 'bsc_deferredContent' )

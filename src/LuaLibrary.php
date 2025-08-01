@@ -43,7 +43,7 @@ use Scribunto_LuaLibraryBase;
 class LuaLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
-	 * @var ApplicationFactory $applicationFactory;
+	 * @var ApplicationFactory ;
 	 */
 	private ApplicationFactory $applicationFactory;
 
@@ -78,13 +78,13 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * @param null|string $componentName
 	 * @param null|string $input
-	 * @param null|array  $arguments
-	 * @param null|bool   $noStrip
+	 * @param null|array $arguments
+	 * @param null|bool $noStrip
 	 *
 	 * @return string[]
 	 *
 	 * Note: Please refrain from using Type hints in function signature. Will break tests!
-	 *@throws MWException
+	 * @throws MWException
 	 *
 	 * @throws ReflectionException
 	 */
@@ -106,7 +106,7 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		// we use $noStrip == true for unit tests and as a hidden feature in lua ;)
-		$noStrip = $noStrip || (isset( $arguments['noStrip'] ) && $arguments['noStrip']);
+		$noStrip = $noStrip || ( isset( $arguments['noStrip'] ) && $arguments['noStrip'] );
 		$parsedComponent = $noStrip ? $parsedComponent : $this->getParser()->insertStripItem( $parsedComponent );
 
 		return [ $parsedComponent ];
@@ -120,12 +120,12 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * @param string      $input
+	 * @param string $input
 	 * @param array|string|null $arguments
 	 * @param null|string $component
 	 *
 	 * @return ParserRequest
-	 *@throws MWException
+	 * @throws MWException
 	 *
 	 */
 	protected function buildParserRequest(
@@ -148,7 +148,6 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @return AbstractComponent
 	 */
 	protected function getComponent( string $componentClass ): AbstractComponent {
-
 		$objectReflection = new ReflectionClass( $componentClass );
 		/** @var AbstractComponent $component */
 		$component = $objectReflection->newInstanceArgs(
@@ -171,8 +170,7 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * @return BootstrapComponentsService
 	 */
-	protected function getBootstrapComponentsService(): BootstrapComponentsService
-	{
+	protected function getBootstrapComponentsService(): BootstrapComponentsService {
 		return $this->bootstrapComponentService;
 	}
 
@@ -206,15 +204,14 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return string
 	 */
-	private function processKeyValuePair( $key, $value ): string
-	{
+	private function processKeyValuePair( $key, $value ): string {
 		if ( is_int( $key ) || preg_match( '/[0-9]+/', $key ) ) {
 			return trim( $value );
 		}
 		if ( is_array( $value ) ) {
 			$glue = $key == 'style' ? ';' : ' ';
 			return $key . '=' . implode( $glue, $value );
-		} elseif( is_bool( $value ) ) {
+		} elseif ( is_bool( $value ) ) {
 			return $key . '=' . ( $value ? 'yes' : 'no' );
 		} else {
 			return $key . '=' . $value;

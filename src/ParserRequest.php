@@ -39,12 +39,12 @@ use PPFrame;
  */
 class ParserRequest {
 	/**
-	 * @var string[] $attributes
+	 * @var string[]
 	 */
 	private array $attributes;
 
 	/**
-	 * @var string $input
+	 * @var string
 	 */
 	private string $input;
 
@@ -54,7 +54,7 @@ class ParserRequest {
 	private PPFrame|null $frame;
 
 	/**
-	 * @var Parser $parser
+	 * @var Parser
 	 */
 	private Parser $parser;
 
@@ -64,8 +64,8 @@ class ParserRequest {
 	 * Do not instantiate directly, but use {@see ApplicationFactory::getNewParserRequest}
 	 * instead.
 	 *
-	 * @param array  $argumentsPassedByParser
-	 * @param bool   $isParserFunction
+	 * @param array $argumentsPassedByParser
+	 * @param bool $isParserFunction
 	 * @param string $componentName
 	 *
 	 * @see ApplicationFactory::getNewParserRequest
@@ -75,7 +75,7 @@ class ParserRequest {
 	public function __construct(
 		array $argumentsPassedByParser, bool $isParserFunction, string $componentName = 'unknown'
 	) {
-		list( $this->input, $attributes, $parser, $frame ) =
+		[ $this->input, $attributes, $parser, $frame ] =
 			$this->processArguments( $argumentsPassedByParser, $isParserFunction, $componentName );
 		$this->attributes = (array)$attributes;
 		if ( !$parser || !is_a( $parser, 'Parser' ) ) {
@@ -139,7 +139,7 @@ class ParserRequest {
 	 *
 	 * @see https://www.mediawiki.org/w/index.php?title=Manual:Parser_functions&oldid=2572048
 	 *
-	 * @param array  $options
+	 * @param array $options
 	 * @param string $componentName
 	 *
 	 * @throws MWException
@@ -156,7 +156,7 @@ class ParserRequest {
 					'Arguments passed to bootstrap component "' . $componentName . '" are invalid!'
 				);
 			}
-			list( $key, $value ) = $this->getKeyValuePairFrom( $option );
+			[ $key, $value ] = $this->getKeyValuePairFrom( $option );
 			if ( strlen( $key ) ) {
 				$results[$key] = $value;
 			}
@@ -170,7 +170,6 @@ class ParserRequest {
 	 * @return string[]
 	 */
 	private function getKeyValuePairFrom( string $option ): array {
-
 		$pair = explode( '=', $option, 2 );
 
 		if ( count( $pair ) === 2 ) {
@@ -190,8 +189,8 @@ class ParserRequest {
 	 * Parses the arguments passed to parse() method depending on handler type
 	 * (parser function or tag extension).
 	 *
-	 * @param array  $argumentsPassedByParser
-	 * @param bool   $isParserFunction
+	 * @param array $argumentsPassedByParser
+	 * @param bool $isParserFunction
 	 * @param string $componentName
 	 *
 	 * @throws MWException if argument list does not match handler type or unknown handler type detected

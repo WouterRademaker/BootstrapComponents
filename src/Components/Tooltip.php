@@ -26,8 +26,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
-use \Html;
 
 /**
  * Class Tooltip
@@ -39,7 +39,7 @@ use \Html;
  */
 class Tooltip extends AbstractComponent {
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
@@ -51,7 +51,7 @@ class Tooltip extends AbstractComponent {
 		if ( empty( $tooltip ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-tooltip-content-missing' );
 		}
-		[ $tag, $input, $attributes ] = $this->buildHtmlElements( $input, (string) $tooltip );
+		[ $tag, $input, $attributes ] = $this->buildHtmlElements( $input, (string)$tooltip );
 
 		return [
 			Html::rawElement(

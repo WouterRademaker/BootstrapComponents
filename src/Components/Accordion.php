@@ -26,8 +26,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
-use \Html;
 
 /**
  * Class Accordion
@@ -39,16 +39,15 @@ use \Html;
  */
 class Accordion extends AbstractComponent {
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
 	protected function placeMe( $input ) {
-
 		# legacy class "panel-group" remains for now;
 		# also, we do not use class "accordion" b/c Extension:Bootstrap cuts the border-bottom of every card
 		# plz note, that card-group however is something completely different
-		list ( $class, $style ) = $this->processCss( [ 'panel-group', 'bsc_accordion' ], [] );
+		[ $class, $style ] = $this->processCss( [ 'panel-group', 'bsc_accordion' ], [] );
 
 		return Html::rawElement(
 			'div',

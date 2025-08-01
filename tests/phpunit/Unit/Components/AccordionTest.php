@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
-use MediaWiki\Extension\BootstrapComponents\Components\Accordion as Accordion;
+use MediaWiki\Extension\BootstrapComponents\Components\Accordion;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Accordion
@@ -27,7 +27,6 @@ class AccordionTest extends ComponentsTestBase {
 	 * @throws \MWException
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Accordion',
 			new Accordion(
@@ -40,7 +39,7 @@ class AccordionTest extends ComponentsTestBase {
 
 	/**
 	 * @param string $input
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @param string $expectedOutput
 	 *
 	 * @dataProvider placeMeArgumentsProvider

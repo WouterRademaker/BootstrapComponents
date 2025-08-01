@@ -26,9 +26,9 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
+use Html;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
-use \Html;
-use \Title;
+use Title;
 
 /**
  * Class Button
@@ -40,7 +40,7 @@ use \Title;
  */
 class Button extends AbstractComponent {
 	/**
-	 * @var array $rawAttributes
+	 * @var array
 	 */
 	private $rawAttributes = [];
 
@@ -57,7 +57,7 @@ class Button extends AbstractComponent {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 *
 	 * @param string $input
 	 */
@@ -66,13 +66,13 @@ class Button extends AbstractComponent {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-button-target-missing' );
 		}
 
-		list( $target, $text ) = $this->getTargetAndText( $input );
+		[ $target, $text ] = $this->getTargetAndText( $input );
 
 		if ( empty( $target ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-button-target-invalid' );
 		}
 
-		list ( $class, $style ) = $this->processCss(
+		[ $class, $style ] = $this->processCss(
 			$this->calculateClassAttribute(),
 			[]
 		);
@@ -100,7 +100,6 @@ class Button extends AbstractComponent {
 	 * @return string[]
 	 */
 	private function calculateClassAttribute() {
-
 		$class = [ "btn" ];
 		$colorClass = 'btn-';
 		if ( (bool)$this->getValueFor( 'outline' ) ) {
@@ -137,7 +136,7 @@ class Button extends AbstractComponent {
 			$targetTitle = Title::newFromText( $target );
 			$target = $targetTitle ? $targetTitle->getLocalURL() : null;
 		}
-		list( $text, $target ) = $this->stripLinksFrom( $text, $target );
+		[ $text, $target ] = $this->stripLinksFrom( $text, $target );
 		return [ $target, $text ];
 	}
 
